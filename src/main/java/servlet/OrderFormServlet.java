@@ -1,6 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,37 +12,93 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class OrderFormServlet
- */
+import dao.OrderDAO;
+import logic.ProductviewLogic;
+import model.EmployeeBean;
+import model.EmployeeOrder;
+import model.Product;
+
 @WebServlet("/OrderFormServlet")
 public class OrderFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public OrderFormServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+        super();  
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/orderform.jsp");
-				dispatcher.forward(request, response);
+		HttpSession session = request.getSession(); 
+		EmployeeBean loginEmployee = (EmployeeBean)session.getAttribute("loginEmployee");
+		
+		ProductviewLogic productviewLogic = new ProductviewLogic();
+		List<Product> productList = productviewLogic.execute();
+		request.setAttribute("productList", productList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/orderform.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+
+		
+		String action = request.getParameter("action");
+
+		if ("submit".equals(action)) {
+		    List<EmployeeOrder> orderList = (List<EmployeeOrder>) session.getAttribute("orderList");
+
+		    try {
+		        OrderDAO dao = new OrderDAO();
+		        dao.saveOrders(orderList);
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+
+		    }
+
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/ordercomp.jsp");
+		    dispatcher.forward(request, response);
+		    return;
+		}
+
+
+		
+		
+		ProductviewLogic logic = new ProductviewLogic();
+	    List<Product> productList = logic.execute();
+
+	    List<EmployeeOrder> orderList = new ArrayList<>();
+	    for (Product product : productList) {
+	        String quantityStr = request.getParameter(String.valueOf(product.getId()));
+	        if (quantityStr != null && !quantityStr.isEmpty()) {
+	            int quantity = Integer.parseInt(quantityStr);
+	            if (quantity > 0) {
+	                int totalPrice = quantity * product.getPrice();
+	                EmployeeOrder order = new EmployeeOrder(
+	                    LocalDateTime.now(),
+	                    product.getName(),
+	                    quantity,
+	                    totalPrice
+	                );
+	                orderList.add(order);
+	            }
+	        }
+	    }
+	 
+
+	    
+	    int totalAmount = 0;
+	    for (EmployeeOrder order : orderList) {
+	        totalAmount += order.getTotalPrice();
+	    }
+	    session.setAttribute("orderList", orderList);
+	    session.setAttribute("totalAmount", totalAmount);
+
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/preorder.jsp");
+	    dispatcher.forward(request, response);
+
 	}
 
 }

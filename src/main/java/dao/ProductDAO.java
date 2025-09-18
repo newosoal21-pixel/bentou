@@ -11,6 +11,8 @@ import model.Product;
 
 public class ProductDAO {
 	
+	
+	
 	//検索条件を元に検索
 	public List<Product> findByDetail(Product p) {
 	    List<Product> productList = new ArrayList<>();
@@ -55,9 +57,10 @@ public class ProductDAO {
 	        try (ResultSet rs = pStmt.executeQuery()) {
 	            while (rs.next()) {
 	                Product product = new Product(
-	                    rs.getInt("ID"),
-	                    rs.getString("NAME"),
-	                    rs.getInt("PRICE")
+	                    rs.getInt("products_id"),
+	                    rs.getString("itemname"),
+	                    rs.getInt("price"),
+	                    rs.getString("image")
 	                );
 	                productList.add(product);
 	            }
@@ -70,4 +73,29 @@ public class ProductDAO {
 	    return productList;
 	}
 
+	public List<Product> findByDetail() {
+		 List<Product> productList = new ArrayList<>();
+		    String sql = "SELECT * FROM PRODUCTS";
+
+		    try (Connection conn = DBManager.getConnection();
+		         PreparedStatement pStmt = conn.prepareStatement(sql);
+		         ResultSet rs = pStmt.executeQuery()) {
+
+		        while (rs.next()) {
+		            Product product = new Product(
+		                rs.getInt("products_id"),
+		                rs.getString("itemname"),
+		                rs.getInt("price"),
+	                    rs.getString("image")
+		            );
+		            productList.add(product);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return null;
+
+	}
+			return productList;
+
+}
 }
