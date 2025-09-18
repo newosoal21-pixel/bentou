@@ -4,60 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>登録内容確認画面</title>
-    <style>
-        body {
-            font-family: "メイリオ", sans-serif;
-            margin: 0;
-            background-color: #fff;
-        }
-        header, footer {
-            background-color: #fce58b;
-            padding: 10px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px 40px;
-            border-radius: 8px;
-            background: #fff;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: disc;
-            padding-left: 20px;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-        li {
-            margin-bottom: 12px;
-        }
-        .btn-area {
-            text-align: center;
-        }
-        .action-btn {
-            display: inline-block;
-            margin: 0 30px;
-            padding: 10px 25px;
-            border: 2px solid #ffcc00;
-            border-radius: 6px;
-            color: #ff9900;
-            font-weight: bold;
-            text-decoration: none;
-            background: #fff;
-            cursor: pointer;
-        }
-        footer {
-            text-align: center;
-            font-size: 12px;
-            margin-top: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
+    
 </head>
 <body>
-<header></header>
+<!-- 共通ヘッダー呼び出し -->
+    <%@ include file="/css/header.jsp" %>
 
 <div class="container">
     <h1>登録内容確認画面</h1>
@@ -83,6 +35,8 @@
     </div>
 </div>
 
-<footer>ごはん係DX</footer>
+<!-- フッター -->
+  <%@ include file="/css/footer.jsp" %>
+  
 </body>
 </html>
