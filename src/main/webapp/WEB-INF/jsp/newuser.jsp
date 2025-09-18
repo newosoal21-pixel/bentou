@@ -92,11 +92,14 @@
 
   <!-- メイン -->
   <main>
-    <form action="NewaduserServlet" method="post">
+    <form action="NewAduserServlet" method="post">
       <!-- 部署 -->
       <label>部署</label>
       <select name="department" required>
         <option value="">選択してください</option>
+       
+       <input type="hidden" name="総務部" value="1">
+       <!-- 
         <option value="総務部">総務部</option>
         <option value="営業部">営業部</option>
         <option value="商品開発部">商品開発部</option>

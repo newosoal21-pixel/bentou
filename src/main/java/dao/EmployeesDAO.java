@@ -11,7 +11,8 @@ import model.EmployeeEntry;
 public class EmployeesDAO {
 	
 	public  EmployeeBean findByLogin(int employeesId, String password) {
-		 String sql = "SELECT EMPLOYEES_ID, PASSWORD FROM EMPLOYEES WHERE EMPLOYEES_ID = ? AND PASSWORD = ?";
+		 String sql = "SELECT EMPLOYEES_ID, PASSWORD,USER_NAME,IS_ADMIN, DELETE_FLAG, EMPLOYEES.DEPARTMENT_ID,DEPARTMENT.DEPARTMENT_NAME "
+		 		+ "FROM EMPLOYEES JOIN DEPARTMENT ON DEPARTMENT.DEPARTMENT_ID = EMPLOYEES.DEPARTMENT_ID WHERE EMPLOYEES_ID = ? AND PASSWORD = ? AND DELETE_FLAG=0";
 		
 		 	
 		 try (Connection conn = DBManager.getConnection();   // DBに接続
@@ -24,7 +25,16 @@ public class EmployeesDAO {
 	                while(rs.next()) {
 	                   int empId = rs.getInt("EMPLOYEES_ID");
 	                   String pass = rs.getString("PASSWORD");
-	                   return new EmployeeBean(empId, pass);	                     	                
+	                   String userName = rs.getString("USER_NAME");
+	                   int isAdmin = rs.getInt("IS_ADMIN");
+	                   boolean adminFlag = true;
+	                   if(isAdmin==0) {
+	                	   adminFlag = false;
+	                   }
+	                   //int deleteFlag = rs.getInt("DELETE_FLAG");
+	                   int departmentId = rs.getInt("DEPARTMENT_ID");
+	                   String departmentName = rs.getString("DEPARTMENT_NAME");
+	                   return new EmployeeBean(empId, pass,userName,adminFlag,true,departmentId,departmentName);	                     	                
 	            }    	           
 
 	        } catch (SQLException e) {
@@ -34,7 +44,7 @@ public class EmployeesDAO {
 	
 	}
     public boolean insert(EmployeeEntry entry) {
-        String sql = "INSERT INTO EMPLOYEES (EMPLOYEESID, PASSWORD, USERNAME, DEPARTMENTID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO EMPLOYEES (EMPLOYEE_ID, PASSWORD, USER_NAME, DEPARTMENT_ID) VALUES (?, ?, ?)";
 
         try (Connection conn = DBManager.getConnection();
              PreparedStatement pStmt = conn.prepareStatement(sql)) {
@@ -51,15 +61,34 @@ public class EmployeesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }
+        }        
     }
-	public Boolean checkLoginAndGetAdminStatus(int employeesId, String password) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-	public boolean registerUser(int employeesId, String password, String userName, int departmentId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
-	}
+    /**
+     * ユーザー登録処理
+     * @param employeeId 社員ID
+     * @param password パスワード
+     * @param userName ユーザー名
+     * @param departmentId 部署ID
+     * @return 登録成功ならtrue、失敗ならfalse
+     */
+    public boolean registerUser(int employeeId, String password, String userName, int departmentId) {
+        String sql = "INSERT INTO EMPLOYEES (EMPLOYEE_ID, PASSWORD, USER_NAME, DEPARTMENT_ID) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employeeId);
+            pstmt.setString(2, password);
+            pstmt.setString(3, userName);
+            pstmt.setInt(4, departmentId);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }   
 
 }

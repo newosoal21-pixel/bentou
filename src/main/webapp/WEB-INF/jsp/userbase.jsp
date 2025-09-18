@@ -80,8 +80,8 @@
     
     <!-- ユーザー情報 -->
     <div class="user-info">
-        社員番号 ${employeeId}<br>
-        部署名 ${department}　名前 ${name}
+        社員番号 ${employee.employeesId}<br>
+        部署名 ${employee.departmentName}　名前 ${employee.userName}
         <img src="images/rice_icon.png" alt="icon">
     </div>
 </header>
@@ -91,11 +91,11 @@
     <img src="images/rice_set.png" alt="ごはんアイコン">
     
     <!-- ようこそメッセージ -->
-    <div class="welcome">ようこそ！<br>${name}さん</div>
+    <div class="welcome">ようこそ！<br>${employee.userName}さん</div>
     
     <!-- アクションボタン -->
     <div class="button-area">
-        <form action="UserMainServlet" method="get" style="display:inline;">
+        <form action="LogoutServlet" method="post" style="display:inline;">
             <button type="submit" class="action-btn">ログアウト</button>
         </form>
         <form action="UserMypageServlet" method="get" style="display:inline;">

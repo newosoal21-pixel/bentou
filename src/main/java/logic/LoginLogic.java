@@ -1,6 +1,7 @@
 package logic;
 
 import dao.EmployeesDAO;
+import model.EmployeeBean;
 
 public class LoginLogic {
 
@@ -8,10 +9,12 @@ public class LoginLogic {
      * ユーザーIDとパスワードの認証を行い、管理者の場合はtrue、一般ユーザーの場合はfalseを返す。
      * @param employeesId ユーザーID
      * @param password パスワード
-     * @return 認証成功時は管理者の場合はtrue、一般ユーザーの場合はfalse。認証失敗時はnull。
+     * @return 認証成功時はtrue。認証失敗時はnull。
      */
-    public Boolean execute(int employeesId, String password) {
+    public EmployeeBean execute(int employeesId, String password) {
         EmployeesDAO employeeDAO = new EmployeesDAO();
-        return employeeDAO.checkLoginAndGetAdminStatus(employeesId, password);
+        return employeeDAO.findByLogin( employeesId, password);
     }
+    
+ 
 }

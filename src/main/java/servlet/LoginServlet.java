@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import dao.EmployeesDAO;
+import logic.LoginLogic;
 import model.EmployeeBean;
 
 /**
@@ -46,6 +46,10 @@ public class LoginServlet extends HttpServlet {
 		                request.getRequestDispatcher("/WEB-INF/jsp/newuser.jsp");
 		               dispatcher.forward(request, response);
 			 
+		 }else if("adminlogin".equals(next)) {
+				RequestDispatcher dispatcher =
+		                request.getRequestDispatcher("/WEB-INF/jsp/adminlogin.jsp");
+		               dispatcher.forward(request, response);
 		 }
 	}
 
@@ -60,18 +64,16 @@ public class LoginServlet extends HttpServlet {
 	     String password = request.getParameter("password");
 	     
 	  // ログインチェック
-	     EmployeesDAO dao = new EmployeesDAO();
-	     EmployeeBean employees = dao.findByLogin(employeesId, password);
+	     LoginLogic l=new LoginLogic();
+	     EmployeeBean employee = l.execute(employeesId, password);
 
-	     if (employees != null) {
+	     if (employee != null) {
 	         // 認証成功 → セッションに保存
 	         HttpSession session = request.getSession();
-	         session.setAttribute("employees", employees);
-	         session.setAttribute("isLoggedIn", true);
+	         session.setAttribute("employee", employee);
 
-
-	            // ログイン成功後の画面へ
-	            request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
+		            request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
+	        	 
 	        } else {
 	            // 認証失敗
 	            request.setAttribute("errorMessage", "社員IDもしくはパスワードが間違っています。");

@@ -66,20 +66,23 @@
       color: #333;
     }
   </style>
+  
+
 </head>
 <body>
 
+
   <!-- ヘッダー -->
   <header>
-    <a href="adminLogin.jsp">管理者の方はこちら</a>
+    <a href="LoginServlet?next=adminlogin">管理の方はこちら</a>
   </header>
 
   <!-- メイン -->
   <main>
     <h1>ようこそ！<br>ごはん係DXへ</h1>
     <div>
-      <a href="register.jsp" class="btn">新規登録</a>
-      <a href="login.jsp" class="btn">ログイン</a>
+      <a href="LoginServlet?next=new" class="btn">新規登録</a>
+      <a href="LoginServlet?next=login" class="btn">ログイン</a>
     </div>
   </main>
 
@@ -87,6 +90,6 @@
   <footer>
     ごはん係DX
   </footer>
-
+</form>
 </body>
 </html>
