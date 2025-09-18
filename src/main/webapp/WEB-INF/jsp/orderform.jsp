@@ -24,7 +24,7 @@
   <!-- 締め切りまでの時間 -->
   <p id="deadline" class="deadline">締め切りまであと00:00:00！！</p>
 
-  <form method="post" action="#">
+  <form method="post" action="OrderFormServlet">
     <div class="product-list">
 
       <!-- 商品カード例 -->
@@ -133,7 +133,7 @@
  	//画面を読み込んだらスタートする
 	window.addEventListener('load', async () => {
 	try {
-	  const res = await fetch('/lunchclerkdx/deadline',{method: 'POST'});
+	  const res = await fetch('/bentou/deadline',{method: 'POST'});
 	  if (!res.ok) throw new Error('サーバーエラー');
 	  const data = await res.json();
 	  if(data.status=='ok'){
