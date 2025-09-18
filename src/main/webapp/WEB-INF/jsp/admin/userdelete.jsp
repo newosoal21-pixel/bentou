@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+<%@ include file="/common/header_admin.jsp" %>
     <main>
         <h1>社員IDの削除</h1>
 
@@ -41,6 +41,6 @@
             </table>
         </div>
     </main>
-  <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 </body>
 </html>

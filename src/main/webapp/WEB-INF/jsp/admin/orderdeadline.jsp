@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css"> 
 </head>
 <body>
-<%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+<%@ include file="/common/header_admin.jsp" %>
 
     <main>
         <h1>注文締め切り時間の変更</h1>
@@ -35,6 +35,6 @@
         </form>
     </main>
 
- <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+ <%@ include file="/common/footer.jsp" %>
 </body>
 </html>

@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <body>
-<%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+<%@ include file="/common/header_admin.jsp" %>
 
     <main>
         <h1>社員IDと利用金額</h1>
@@ -56,6 +56,6 @@
         </div>
     </main>
 
-  <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 </body>
 </html>

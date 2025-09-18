@@ -18,7 +18,7 @@
   </div>
 
   <div class="buttons">
-    <a href="logout.jsp" class="button">ログアウト</a>
+    <a href="LogoutServlet" class="button">ログアウト</a>
     <a href="AdminOrderServlet" class="button">発注画面へ</a>
     <a href="AdminMainServlet" class="button">管理者用画面へ</a>
   </div>

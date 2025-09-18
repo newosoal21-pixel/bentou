@@ -74,7 +74,7 @@
 <body>
 <header>
     <!-- マイページ戻るボタン -->
-    <form action="mypage.jsp" method="get">
+    <form action="UserMypageServlet" method="get">
         <button type="submit" class="btn-back">マイページへ戻る</button>
     </form>
     

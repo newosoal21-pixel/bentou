@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 <body>
- <%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+ <%@ include file="/common/header_admin.jsp" %>
 
     <main>
         <h1>ログイン履歴</h1>
@@ -33,6 +33,6 @@
  
     </main>
 
-  <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 </body>
 </html>

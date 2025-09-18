@@ -1,0 +1,67 @@
+@charset "UTF-8";
+<style>
+  body {
+    margin: 0;
+    font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+    background-color: white;
+    color: #7a3e00; /* 基本文字色 */
+  }
+
+
+  main {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .welcome-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .welcome-text h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .welcome-text h2 {
+    font-size: 32px;
+    margin-top: 0;
+  }
+
+  .welcome-image img {
+    width: 100px;
+    height: auto;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .button {
+	text-decoration: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: 2px solid #FFC107;
+    color: #FFc107;
+    background-color: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #FFE79B;
+  }
+
+</style>

@@ -7,7 +7,7 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
- <%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+ <%@ include file="/common/header_admin.jsp" %>
 <body>
   <main>
     <h1>メニューの登録・削除</h1>
@@ -68,7 +68,7 @@
       </li>
     </ul>
   </main>
- <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+ <%@ include file="/common/footer.jsp" %>
 </body>
 
 <script>

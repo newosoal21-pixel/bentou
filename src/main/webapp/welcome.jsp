@@ -74,7 +74,7 @@
 
   <!-- ヘッダー -->
   <header>
-    <a href="adminLogin.jsp">管理者の方はこちら</a>
+    <a href="LoginServlet?next=adminlogin">管理者の方はこちら</a>
   </header>
 
   <!-- メイン -->

@@ -86,7 +86,7 @@
 </head>
 <body>
 <header>
-    <form action="usermypage.jsp" method="get">
+    <form action="UserMypageServlet" method="get">
         <button type="submit" class="btn-back">マイページへ戻る</button>
     </form>
     <div class="user-info">

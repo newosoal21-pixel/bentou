@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <%@ include file="/WEB-INF/jsp/common/header_admin.jsp" %>
+  <%@ include file="/common/header_admin.jsp" %>
 
   <main>
     <h1>管理者用画面</h1>
@@ -26,7 +26,7 @@
     </ul>
   </main>
 
-  <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 
 </body>
 </html>

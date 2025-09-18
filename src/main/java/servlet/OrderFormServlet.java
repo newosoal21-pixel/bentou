@@ -29,7 +29,7 @@ public class OrderFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/orderform.jsp");
+                request.getRequestDispatcher("/WEB-INF/jsp/orderform.jsp");
 				dispatcher.forward(request, response);
 	}
 
