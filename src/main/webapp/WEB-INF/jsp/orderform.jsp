@@ -12,7 +12,7 @@
 <body>
 
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/css/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
     
 <main>
   <!-- タイトルと日付 -->
@@ -133,7 +133,7 @@
  	//画面を読み込んだらスタートする
 	window.addEventListener('load', async () => {
 	try {
-	  const res = await fetch('/favorite/deadline',{method: 'POST'});
+	  const res = await fetch('/lunchclerkdx/deadline',{method: 'POST'});
 	  if (!res.ok) throw new Error('サーバーエラー');
 	  const data = await res.json();
 	  if(data.status=='ok'){
@@ -177,7 +177,7 @@
  </script>
  
  <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
   
 </body>
 </html>

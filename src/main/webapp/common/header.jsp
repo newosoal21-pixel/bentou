@@ -3,7 +3,7 @@
 	<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <header>
   <!-- 左側：マイページ戻るボタン -->
-  <button class="action-btn" onclick="location.href='${pageContext.request.contextPath}/mypage.jsp'">
+  <button class="action-btn" onclick="location.href='${pageContext.request.contextPath}/UserMypageServlet'">
     マイページへ戻る
   </button>
   
