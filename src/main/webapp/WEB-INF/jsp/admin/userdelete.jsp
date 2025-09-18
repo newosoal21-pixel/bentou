@@ -13,7 +13,7 @@
     <main>
         <h1>社員IDの削除</h1>
 
-        <form action="deleteEmployee.jsp" method="get" class="search-bar">
+        <form action="UserDeleteServlet" method="get" class="search-bar">
             🔍 <input type="text" name="searchId" placeholder="（社員ID）">
             <button type="submit">検索</button>
         </form>
@@ -25,19 +25,19 @@
                     <th>名前</th>
                     <th></th>
                 </tr>
-                <!-- JSTLで社員一覧をループ表示 -->
+                
                 <c:forEach var="emp" items="${employeeList}">
-                    <tr>
-                        <td>${emp.id}</td>
-                        <td>${emp.name}</td>
-                        <td>
-                            <form method="post" action="deleteEmployeeAction.jsp">
-                                <input type="hidden" name="id" value="${emp.id}">
-                                <button type="submit" class="delete-button">削除</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+    <tr>
+        <td>${emp.employeesId}</td>
+        <td>${emp.userName}</td>
+        <td>
+            <form method="post" action="UserDeleteServlet">
+                <input type="hidden" name="id" value="${emp.employeesId}">
+                <button type="submit" class="delete-button" onclick="return confirm('本当に削除しますか？');">削除</button>
+            </form>
+        </td>
+    </tr>
+</c:forEach>
             </table>
         </div>
     </main>
