@@ -5,111 +5,104 @@
 <head>
 <meta charset="UTF-8">
 <title>注文画面サンプル</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
 <!--  CSSは別ファイルにしてください -->
-<style>
-body {
-	font-family: Arial, sans-serif;
-}
 
-.product-list {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 20px;
-}
-
-.product {
-	background: #fff;
-	text-align: center;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	padding: 15px;
-}
-
-.product img {
-	width: 100%;
-	border-radius: 8px;
-}
-
-.product-name {
-	margin: 10px 0;
-	font-weight: bold;
-}
-
-.quantity-control {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 10px;
-}
-
-.quantity-control button {
-	width: 30px;
-	height: 30px;
-	font-size: 18px;
-	border: none;
-	background-color: #999;
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.quantity-control input {
-	width: 50px;
-	text-align: center;
-	font-size: 16px;
-	margin: 0 5px;
-}
-
-#deadline {
-	color: red;
-	font-weight: bold;
-}
-</style>
 </head>
 <body>
-	<header>
-		<h1>注文画面</h1>
-	</header>
-	<main>
-		<!-- 締め切りまでの時間を表示する -->
-		<p id="deadline">締め切りまで0:00:00</p>
-		<form method="post" action="OrderFormServlet">
-			<div class="product-list">
-				<div class="product">
-					<img src="images/bento.png" alt="商品A">
-					<div class="product-name">商品A</div>
-					<div class="quantity-control">
-						<button type="button" class="minus">−</button>
-						<input type="number" value="0" min="0" max="20" name="1">
-						<button type="button" class="plus">＋</button>
-					</div>
-				</div>
 
-				<div class="product">
-					<img src="images/bento.png" alt="商品B">
-					<div class="product-name">商品B</div>
-					<div class="quantity-control">
-						<button type="button" class="minus">−</button>
-						<input type="number" value="0" min="0" max="20" name="2">
-						<button type="button" class="plus">＋</button>
-					</div>
-				</div>
+<!-- 共通ヘッダー呼び出し -->
+    <%@ include file="/css/header.jsp" %>
+    
+<main>
+  <!-- タイトルと日付 -->
+  <div class="form-header">
+    <h1>注文フォーム</h1>
+    <div class="order-date">0000/00/00</div>
+  </div>
 
-				<div class="product">
-					<img src="images/bento.png" alt="商品C">
-					<div class="product-name">商品C</div>
-					<div class="quantity-control">
-						<button type="button" class="minus">−</button>
-						<input type="number" value="0" min="0" max="20" name="3">
-						<button type="button" class="plus">＋</button>
-					</div>
-				</div>
-			</div>
-			<p>
-				<input type="submit" value="注文" id="order-button">
-			</p>
-		</form>
-	</main>
+  <!-- 締め切りまでの時間 -->
+  <p id="deadline" class="deadline">締め切りまであと00:00:00！！</p>
+
+  <form method="post" action="#">
+    <div class="product-list">
+
+      <!-- 商品カード例 -->
+      <div class="product">
+        <img src="${pageContext.request.contextPath}/images/bentou1.png" alt="しゃけ弁当">
+        <div class="product-name">しゃけ弁当</div>
+        <div class="product-info">¥600円（600kcal）</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="syake">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="${pageContext.request.contextPath}/images/bentou2.png" alt="からあげ弁当">
+        <div class="product-name">からあげ弁当</div>
+        <div class="product-info">¥600円（600kcal）</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="ebi">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="${pageContext.request.contextPath}/images/bentou３.png" alt="幕ノ内弁当">
+        <div class="product-name">幕ノ内弁当</div>
+        <div class="product-info">¥600円（600kcal）</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="karaage">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/makunouchi.png" alt="幕ノ内弁当">
+        <div class="product-name">幕ノ内弁当</div>
+        <div class="product-info">¥700円（700kcal）</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="makunouchi">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/potato.png" alt="ポテトフライ">
+        <div class="product-name">ポテトフライ</div>
+        <div class="product-info">¥300円（500kcal）</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="potato">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/tea.png" alt="お茶">
+        <div class="product-name">お茶</div>
+        <div class="product-info">¥150円</div>
+        <div class="quantity-control">
+          <button type="button" class="minus">−</button>
+          <input type="number" value="0" min="0" max="20" name="tea">
+          <button type="button" class="plus">＋</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 戻る・注文ボタン -->
+    <div class="button-area">
+      <button type="button" class="action-btn">戻る</button>
+      <button type="submit" class="action-btn" id="order-button">注文する</button>
+    </div>
+  </form>
+</main>
 <!--  JavaScriptは別ファイルにしてください -->
 	<script>
  //数量の増減ボタン
@@ -140,7 +133,7 @@ body {
  	//画面を読み込んだらスタートする
 	window.addEventListener('load', async () => {
 	try {
-	  const res = await fetch('/bentou/deadline',{method: 'POST'});
+	  const res = await fetch('/favorite/deadline',{method: 'POST'});
 	  if (!res.ok) throw new Error('サーバーエラー');
 	  const data = await res.json();
 	  if(data.status=='ok'){
@@ -182,5 +175,9 @@ body {
  	}
 
  </script>
+ 
+ <!-- フッター -->
+  <%@ include file="/css/footer.jsp" %>
+  
 </body>
 </html>

@@ -5,97 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>注文確認・キャンセル</title>
-    <style>
-        body {
-            font-family: "メイリオ", sans-serif;
-            margin: 0;
-            background-color: #fff;
-        }
-        header {
-            background-color: #fce58b;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
-        }
-        .btn-back {
-            padding: 6px 14px;
-            border: 2px solid #ffcc00;
-            border-radius: 6px;
-            background: #fff;
-            color: #ff9900;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .user-info {
-            font-size: 14px;
-            text-align: right;
-        }
-        .user-info img {
-            width: 30px;
-            vertical-align: middle;
-            margin-left: 6px;
-        }
-        .container {
-            padding: 40px 60px;
-        }
-        h1 {
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        th {
-            background-color: #ffcc00;
-            padding: 8px;
-            text-align: left;
-        }
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        tr:nth-child(even) td {
-            background-color: #fff5e6;
-        }
-        .cancel-btn {
-            margin-top: 5px;
-            padding: 6px 16px;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            background: #eee;
-            color: #7a3e00;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        footer {
-            background: #fce58b;
-            text-align: center;
-            padding: 5px;
-            font-size: 12px;
-            margin-top: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
+    
 </head>
 <body>
-<header>
-    <form action="UserMypageServlet" method="get">
-        <button type="submit" class="btn-back">マイページへ戻る</button>
-    </form>
-    <div class="user-info">
-        社員番号 ${employeeId}<br>
-        部署名 ${department}　名前 ${name}
-        <img src="images/rice_icon.png" alt="icon">
-    </div>
-</header>
+<!-- 共通ヘッダー呼び出し -->
+    <%@ include file="/css/header.jsp" %>
 
 <div class="container">
     <h1>注文確認・キャンセル</h1>
@@ -130,6 +45,7 @@
     </c:forEach>
 </div>
 
-<footer>ごはん係DX</footer>
+<!-- フッター -->
+  <%@ include file="/css/footer.jsp" %>
 </body>
 </html>
