@@ -9,7 +9,7 @@
 <body>
 
   <!-- 共通ヘッダー呼び出し -->
-  <%@ include file="/css/header_top.jsp" %>
+  <%@ include file="/common/header_top.jsp" %>
 
   
 
@@ -24,7 +24,7 @@
   </main>
 
   <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 
 </body>
 </html>
