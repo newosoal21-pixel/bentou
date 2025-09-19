@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/css/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
 
 <div class="welcome-area img">
@@ -20,12 +20,12 @@
     <div class="message">登録完了しました</div>
 
     <!-- ログイン画面へ遷移 -->
-    <form action="login.jsp" method="get">
+    <form action="LoginServlet" method="get">
         <button type="submit" class="action-btn">ログインID・パスワード入力へ</button>
     </form>
 </div>
 
 <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
 </body>
 </html>

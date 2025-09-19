@@ -9,14 +9,14 @@
 </head>
 <body>
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/css/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
 <div class="container">
     <h1>ログイン</h1>
     <form action="LoginServlet" method="post">
         <div class="form-group label">
-            <label for="userId">社員番号 (User ID)</label>
-            <input type="text" id="userId" name="userId" required>
+            <label for="employeesId">社員番号 (User ID)</label>
+            <input type="text" id="employeesId" name="employeesId" required>
         </div>
         <div class="form-group label">
             <label for="password">パスワード</label>
@@ -34,14 +34,14 @@
         %>
 
         <div class="btn-area">
-            <button type="button" class="action-btn" onclick="location.href='index.jsp'">キャンセル</button>
+            <button type="button" class="action-btn" onclick="location.href='welcome.jsp'">キャンセル</button>
             <button type="submit" class="action-btn">ログイン</button>
         </div>
     </form>
 </div>
 
 <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
   
 </body>
 </html>

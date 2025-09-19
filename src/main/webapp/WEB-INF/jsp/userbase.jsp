@@ -12,7 +12,7 @@
 
 
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/css/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
 <div class="main">
   <div class="welcome-area">
@@ -30,7 +30,7 @@
     <form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
       <button type="submit" class="action-btn">ログアウト</button>
     </form>
-    <form action="${pageContext.request.contextPath}/order.jsp" method="get">
+    <form action="${pageContext.request.contextPath}/UserMypageServlet" method="get">
       <button type="submit" class="action-btn">注文へ</button>
     </form>
   </div>
@@ -40,7 +40,7 @@
 
 
 <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
   
 </body>
 </html>
