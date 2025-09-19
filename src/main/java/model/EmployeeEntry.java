@@ -6,15 +6,17 @@ public class EmployeeEntry implements Serializable {
 	private int employeesId;
 	private String userName;
 	private String password;
+	private String departmentName;
+	private int departmentId;
+
+	public EmployeeEntry() {}
 	
-	public EmployeeEntry(int employeesId,String userName,String password){
+	public EmployeeEntry(int employeesId, String userName, String password, String departmentName, int departmentId) {
 		this.employeesId = employeesId;
 		this.userName = userName;
-		this.password = password;	
-	}
-
-	public EmployeeEntry() {
-		// TODO 自動生成されたコンストラクター・スタブ
+		this.password = password;
+		this.departmentName = departmentName;
+		this.departmentId = departmentId;
 	}
 
 	public int getEmployeesId() {
@@ -41,14 +43,28 @@ public class EmployeeEntry implements Serializable {
 		this.password = password;
 	}
 
-	public void setDepartment(String parameter) {
-		this.setDepartment(parameter);
-		
+	public String getDepartmentName() {
+		return departmentName;
 	}
 
-	public Object getDepartment() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
+
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeEntry [employeesId=" + employeesId + ", userName=" + userName + ", password=" + password
+				+ ", departmentId=" + departmentId + departmentId + "departmentName" + "]";
+	}
+	
+	
 	
 }

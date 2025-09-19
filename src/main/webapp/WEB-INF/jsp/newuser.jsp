@@ -92,22 +92,22 @@
 
   <!-- メイン -->
   <main>
-    <form action="RegisterServlet" method="post">
+    <form action="NewAduserServlet" method="post">
       <!-- 部署 -->
       <label>部署</label>
-      <select name="department" required>
-        <option value="">選択してください</option>
-        <option value="総務部">総務部</option>
-        <option value="営業部">営業部</option>
-        <option value="商品開発部">商品開発部</option>
-        <option value="研究開発部">研究開発部</option>
-        <option value="技術部">技術部</option>
-        <option value="情報システム部">情報システム部</option>
+      <select name="departmentId" required>
+        <option value="">選択してください</option> 
+        <option value="1">総務部</option>
+        <option value="2">営業部</option>
+        <option value="3">商品開発部</option>
+        <option value="4">研究開発部</option>
+        <option value="5">技術部</option>
+        <option value="6">情報システム部</option>
       </select>
 
       <!-- 社員ID -->
       <label>社員ID</label>
-      <input type="text" name="userId" required>
+      <input type="text" name="employeesId" required>
 
       <!-- パスワード -->
       <label>パスワード <span style="font-weight: normal; font-size: 12px;">(4文字以上)</span></label>
@@ -125,7 +125,7 @@
 
       <!-- 名前 -->
       <label>名前</label>
-      <input type="text" name="name" required>
+      <input type="text" name="userName" required>
 
       <!-- 登録ボタン -->
       <button type="submit" class="btn">登録</button>
