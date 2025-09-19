@@ -19,7 +19,7 @@ public class UserRegistLogic {
      */
     public String validateAndRegister(EmployeeEntry employeeEntry, String passwordCheck) {
         // 全項目が入力されているか検証
-        if (employeeEntry.getDepartment() == null || employeeEntry.getDepartment().isEmpty() ||
+        if (employeeEntry.getDepartmentId() == 0 || 
             employeeEntry.getUserName() == null || employeeEntry.getUserName().isEmpty() ||
             String.valueOf(employeeEntry.getEmployeesId()) == null || String.valueOf(employeeEntry.getEmployeesId()).isEmpty() ||
             employeeEntry.getPassword() == null || employeeEntry.getPassword().isEmpty() ||
@@ -47,7 +47,7 @@ public class UserRegistLogic {
                 employeeEntry.getEmployeesId(),
                 employeeEntry.getPassword(),
                 employeeEntry.getUserName(),
-                departmentId
+                employeeEntry.getDepartmentId()           
             );
 
             if (!isRegistered) {
