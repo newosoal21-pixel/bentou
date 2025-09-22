@@ -1,16 +1,16 @@
 package model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class OrderDeadline implements Serializable {
-    private LocalDateTime deadlineTime;
+    private LocalTime deadlineTime;
 
-    public LocalDateTime getDeadlineTime() {
+    public LocalTime getDeadlineTime() {
         return deadlineTime;
     }
 
-    public void setDeadlineTime(LocalDateTime deadlineTime) {
+    public void setDeadlineTime(LocalTime deadlineTime) {
         this.deadlineTime = deadlineTime;
     }
 }
