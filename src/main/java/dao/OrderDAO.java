@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +13,6 @@ import java.util.Map;
 import model.AdminOrder;
 
 public class OrderDAO {
-	private final String JDBC_URL="jdbc:mysql://localhost:3306/lunchclerkdx?useSSL=false&serverTimezone=UTC";
-	private final String DB_USER="root";
-	private final String DB_PASS="root";
- 
 
     // ----------------------------
     // 取得メソッド（新規追加）
@@ -41,7 +36,7 @@ public class OrderDAO {
                    + "ORDER BY o.orders_id DESC";
         System.out.println(sql);
         
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+        try (Connection conn = DBManager.getConnection();
              PreparedStatement pStmt = conn.prepareStatement(sql);
              ResultSet rs = pStmt.executeQuery()) {
 
@@ -107,7 +102,7 @@ public class OrderDAO {
                   + "WHERE orderdate = CURDATE() ";
 
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+        try (Connection conn = DBManager.getConnection();
              PreparedStatement pStmt = conn.prepareStatement(sql);
              ResultSet rs = pStmt.executeQuery()) {
 
@@ -118,7 +113,6 @@ public class OrderDAO {
                 	result = true;
                 }
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
