@@ -24,7 +24,7 @@
             <li><a href="${pageContext.request.contextPath}/UserNewOrderServlet">注文確認・注文キャンセル</a></li>
             <li><a href="${pageContext.request.contextPath}/OrderFormServlet">注文フォームへ</a></li>
             <li><a href="${pageContext.request.contextPath}/UserOrderListServlet">過去の注文履歴</a></li>
-            <li><a href="${pageContext.request.contextPath}/ChangeUserdomainServlet">名前・部署名変更</a></li>
+            <li><a href="${pageContext.request.contextPath}/useredit.jsp">名前・部署名変更</a></li>
             <li><a href="LogoutServlet">ログアウト</a></li>
         </ul>
     </div>
