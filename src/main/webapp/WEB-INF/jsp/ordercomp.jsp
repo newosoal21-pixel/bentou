@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/css/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
 <div class="main">
     <h1>注文完了</h1>
@@ -23,7 +23,7 @@
 </div>
 
 <!-- フッター -->
-  <%@ include file="/css/footer.jsp" %>
+  <%@ include file="/common/footer.jsp" %>
   
 </body>
 </html>

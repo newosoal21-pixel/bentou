@@ -30,7 +30,6 @@ public class OrderFormServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
-		EmployeeBean loginEmployee = (EmployeeBean)session.getAttribute("loginEmployee");
 		
 		ProductviewLogic productviewLogic = new ProductviewLogic();
 		List<Product> productList = productviewLogic.execute();
@@ -43,7 +42,6 @@ public class OrderFormServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
 		
 		String action = request.getParameter("action");
 
@@ -52,7 +50,15 @@ public class OrderFormServlet extends HttpServlet {
 
 		    try {
 		        OrderDAO dao = new OrderDAO();
-		        dao.saveOrders(orderList);
+		        EmployeeBean employee = (EmployeeBean) session.getAttribute("loginEmployee");
+		        
+		        /* テスト用 */
+		        if (employee == null) {
+		            employee = new EmployeeBean();
+		            employee.setEmployeesId(999); // 仮の従業員ID
+		     
+		        }
+		        dao.saveOrders(orderList, employee); // ← セッションから取得した employee を渡す
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 

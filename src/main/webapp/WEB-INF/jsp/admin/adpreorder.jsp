@@ -27,9 +27,9 @@
 				<tbody>
 					<c:forEach var="order" items="${orderList}">
 						<tr>
-							<td>${order.name}</td>
-							<td>${order.quantity != null ? order.quantity : ''}</td>
-							<td>${order.price != null ? order.price : ''}</td>
+							<td>${order.itemName}</td>
+							<td>${order.totalQuantity != null ? order.totalQuantity : ''}</td>
+							<td>${order.totalPrice != null ? order.totalPrice : ''}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -49,7 +49,7 @@
 ■ 配達時間：12時頃
 ■ 注文内容：
 <c:forEach var="item" items="${orderList}">
-  ${item.name} ${item.quantity}個 ${item.price}円
+  ${item.itemName} ${item.totalQuantity}個 ${item.totalPrice}円
 </c:forEach>
 ■ 合計数量：${totalQuantity}個
 ご不明点などございましたらご連絡ください。
@@ -60,7 +60,19 @@
 メール：xxxx@xxxx.com
 電話：000-0000-0000
 </pre>
-			<button class="button">発注する</button>
+<form action="${pageContext.request.contextPath}/AdminOrderServlet" method="post">
+    <button type="submit" class="button" <c:if test="${orderCompleted}">disabled="disabled"</c:if>>
+        <c:choose>
+            <c:when test="${orderCompleted}">本日は発注済み</c:when>
+            <c:otherwise>発注する</c:otherwise>
+        </c:choose>
+    </button>
+</form>
+</form>
+    </button>
+</form>
+</form>
+</form>
 		</section>
 	</main>
   <%@ include file="/common/footer.jsp" %>

@@ -69,10 +69,10 @@
     </ul>
 
     <div class="btn-area">
-        <form action="NewuserSarvlet" method="get" style="display:inline;">
+        <form action="NewAduserServlet" method="get" style="display:inline;">
             <button type="submit" class="action-btn">キャンセル</button>
         </form>
-        <form action="RegisterServlet" method="post" style="display:inline;">
+        <form action="NewAduserServlet" method="post" style="display:inline;">
             <!-- 隠しフィールドで値を送信 -->
             <input type="hidden" name="department" value="${employee.departmentName}">
             <input type="hidden" name="employeeId" value="${employee.employeesId}">
