@@ -14,7 +14,7 @@
   <main>
   <div class="welcome-text">
     <h1>ようこそ！</h1>
-    <h2>管理者の${userName}さん</h2>
+    <h2>管理者の${employee.userName}さん</h2>
   </div>
 
   <div class="buttons">

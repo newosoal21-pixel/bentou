@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//入力値の取得
 		 String next = request.getParameter("next");
+		 String button = request.getParameter("button");
 		 
 		 if("login".equals(next)) {
 				RequestDispatcher dispatcher =
@@ -48,9 +49,14 @@ public class LoginServlet extends HttpServlet {
 			 
 		 }else if("adminlogin".equals(next)) {
 				RequestDispatcher dispatcher =
-		                request.getRequestDispatcher("/WEB-INF/jsp/adminlogin.jsp");
+		                request.getRequestDispatcher("/WEB-INF/jsp/admin/admintop.jsp");
 		               dispatcher.forward(request, response);
 		 }
+		 if(button != null) {
+			 RequestDispatcher dispatcher =
+		                request.getRequestDispatcher("/WEB-INF/jsp/admin/adminlogin.jsp");
+		               dispatcher.forward(request, response);
+	}
 	}
 
 	/**
@@ -59,6 +65,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		request.setCharacterEncoding("UTF-8");
+				
+		 String idStr = request.getParameter("employeesId");
+		 String pass = request.getParameter("password");
+
+		    // ログで確認
+		    System.out.println("employeesId: " + idStr);
+		    System.out.println("password: " + (pass));
 		//入力値の取得
 		 int employeesId = Integer.parseInt(request.getParameter("employeesId"));
 	     String password = request.getParameter("password");
@@ -71,8 +84,14 @@ public class LoginServlet extends HttpServlet {
 	         // 認証成功 → セッションに保存
 	         HttpSession session = request.getSession();
 	         session.setAttribute("employee", employee);
+	         
 
-		            request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
+	         if (employee.isAdmin()) {
+	             request.getRequestDispatcher("/WEB-INF/jsp/admin/adminbase.jsp").forward(request, response);
+	         } else {
+	             request.getRequestDispatcher("/WEB-INF/jsp/admin/userbase.jsp").forward(request, response);
+	         }
+
 	        	 
 	        } else {
 	            // 認証失敗

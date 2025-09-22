@@ -75,13 +75,14 @@
   </header>
 
   <main>
+  <form action="LoginServlet" method="get">
     <h1>ようこそ！<br>ごはん係DXへ</h1>
-    <button class="login-button">ログイン</button>
+    <button type="submit" name="button" value="button"class="login-button">ログイン</button>
   </main>
 
   <footer>
     ごはん係DX
   </footer>
-
+</form>
 </body>
 </html>

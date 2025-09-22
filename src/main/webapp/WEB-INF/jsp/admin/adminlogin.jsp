@@ -99,14 +99,15 @@
 
   <main>
     <h1>ログイン</h1>
-    <form action="#" method="post">
+    <form action="LoginServlet" method="post">
+    <input type="hidden" name="adminFlag" value="1">
       <div class="form-row">
-        <label for="employee-id">・社員ID</label>
-        <input type="text" id="employee-id" name="employee-id" required>
+        <label for="employeesId">・社員ID</label>
+        <input type="text" id="employeesId" name="employeesId" required>
       </div>
       <div class="form-row">
-        <label for="admin-password">・管理者用パスワード</label>
-        <input type="password" id="admin-password" name="admin-password" required>
+        <label for="password">・管理者用パスワード</label>
+        <input type="password" id="password" name="password" required>
       </div>
       <button type="submit" class="login-button">ログイン</button>
     </form>
@@ -115,6 +116,5 @@
   <footer>
     ごはん係DX
   </footer>
-
 </body>
 </html>
