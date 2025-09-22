@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 	         if (employee.isAdmin()) {
 	             request.getRequestDispatcher("/WEB-INF/jsp/admin/adminbase.jsp").forward(request, response);
 	         } else {
-	             request.getRequestDispatcher("/WEB-INF/jsp/admin/userbase.jsp").forward(request, response);
+	             request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
 	         }
 
 	        	 
