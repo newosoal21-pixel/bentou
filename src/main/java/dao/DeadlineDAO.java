@@ -52,7 +52,7 @@ public class DeadlineDAO {
 	        success = (updated > 0);
 
 	    } catch (SQLException e) {
-	        e.printStackTrace();  // 本番では Logger を推奨
+	        e.printStackTrace();
 	    }
 
 	    return success;
