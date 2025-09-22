@@ -75,6 +75,7 @@ public class LoginServlet extends HttpServlet {
 		//入力値の取得
 		 int employeesId = Integer.parseInt(request.getParameter("employeesId"));
 	     String password = request.getParameter("password");
+	     String button = request.getParameter("button");
 	     
 	  // ログインチェック
 	     LoginLogic l=new LoginLogic();
@@ -85,11 +86,17 @@ public class LoginServlet extends HttpServlet {
 	         HttpSession session = request.getSession();
 	         session.setAttribute("employee", employee);
 	         
-
+	         if("user".equals( button)) {
+	        	 request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
+	        	 return;
+	         }
+	         
 	         if (employee.isAdmin()) {
 	             request.getRequestDispatcher("/WEB-INF/jsp/admin/adminbase.jsp").forward(request, response);
+	        	 return;
 	         } else {
 	             request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
+	        	 return;
 	         }
 
 	        	 
