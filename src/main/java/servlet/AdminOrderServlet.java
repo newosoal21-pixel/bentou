@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,21 @@ public class AdminOrderServlet extends HttpServlet {
 	    request.setAttribute("orderCompleted", orderCompleted);
 	    request.setAttribute("updatedCount", updatedCount);
 	    request.setAttribute("map", map);
+	    
+	    Map<String, Integer> totalPriceMap = new HashMap<>();
+	    for (Map.Entry<String, List<AdminOrder>> entry : map.entrySet()) {
+	        int sum = 0;
+	        for (AdminOrder order : entry.getValue()) {
+	            sum += order.getTotalPrice();
+	        }
+	        totalPriceMap.put(entry.getKey(), sum);
+	    }
 
+	    request.setAttribute("totalPriceMap", totalPriceMap);
+
+	 
+	    
+	    
 	    request.getRequestDispatcher("/WEB-INF/jsp/admin/adordercomp.jsp")
 	           .forward(request, response);
 	}

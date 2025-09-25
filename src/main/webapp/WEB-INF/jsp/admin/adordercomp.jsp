@@ -41,7 +41,7 @@
 
 	<c:forEach var="entry" items="${map}">
 		<section class="order-summary">
-	      <p>&lt;部署別&gt; ${entry.key} ${orderDate} 合計金額 ${totalPrice}円</p>
+	      <p>&lt;部署別&gt; ${entry.key} ${orderDate} 合計金額 ${totalPriceMap[entry.key]}円</p>
 	      <table>
 	        <table>
 				<thead>
