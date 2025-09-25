@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import logic.AdPreorderLogic;
 import model.AdminOrder;
@@ -33,6 +34,7 @@ public class AdminOrderServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		AdPreorderLogic adPreorderLogic = new AdPreorderLogic();
 	    List<AdminOrder> orderList = adPreorderLogic.execute();
 
@@ -50,10 +52,10 @@ public class AdminOrderServlet extends HttpServlet {
 	    // 今日の日付を取得
 	    Date orderDate = new Date(System.currentTimeMillis());
 
-	    request.setAttribute("orderList", orderList);
-	    request.setAttribute("totalAmount", totalAmount);
-	    request.setAttribute("orderDate", orderDate); // ←ここを追加
-	    request.setAttribute("totalQuantity", totalQuantity);
+	    session.setAttribute("orderList", orderList);
+	    session.setAttribute("totalAmount", totalAmount);
+	    session.setAttribute("orderDate", orderDate); // ←ここを追加
+	    session.setAttribute("totalQuantity", totalQuantity);
 	    
 	    //boolean orderCompleted 
 	    boolean orderCompleted = orderList != null && orderList.stream()
