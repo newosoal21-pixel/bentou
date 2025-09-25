@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.AdminOrder;
+import model.OrderDate;
 import model.TotalBuy;
 
 public class OrderDAO {
@@ -156,7 +157,7 @@ public class OrderDAO {
         return totalList; //戻り値は TotalBuy（社員ID・名前・合計金額）のリスト
 }
     //「注文された年と月の組み合わせをすべて取得する」ためのメソッド
-    /*
+    
     public List<OrderDate> getOrderDates() throws SQLException {
         List<OrderDate> dateList = new ArrayList<>();
 
@@ -177,7 +178,7 @@ public class OrderDAO {
 
         return dateList;
     }
-    */
+ 
     public Map<String, List<AdminOrder>> DepartmentOrders(){
     	//
     	Map<String, List<AdminOrder>> map = new LinkedHashMap<>();
