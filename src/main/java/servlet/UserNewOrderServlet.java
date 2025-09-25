@@ -21,7 +21,7 @@ public class UserNewOrderServlet extends HttpServlet {
      */
     public UserNewOrderServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
