@@ -16,7 +16,7 @@
     <h1>管理者用画面</h1>
     <ul>
       <li><a href="${pageContext.request.contextPath}/OrderDeadlineServlet">注文時間の変更</a></li>
-      <li><a href="${pageContext.request.contextPath}/UserTotalbuyServlet">社員IDと利用金額</a></li>
+      <li><a href="${pageContext.request.contextPath}/UserTotalBuyServlet">社員IDと利用金額</a></li>
       <li><a href="${pageContext.request.contextPath}/PasswordChangeServlet">パスワード変更</a></li>
       <li><a href="${pageContext.request.contextPath}/LoginHistoryServlet">ログイン履歴</a></li>
       <li><a href="${pageContext.request.contextPath}/UserDeleteServlet">社員IDの削除</a></li>
