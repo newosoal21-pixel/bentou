@@ -288,3 +288,11 @@ body {
   padding-bottom: 60px; /* フッターの高さ分の余白 */
 }
 
+.highlight {
+  font-weight: bold;
+  color: #d32f2f;              
+  background-color: #fff3cd;   
+  padding: 4px 8px;            
+  border-radius: 6px;         
+  font-size: 18px;           
+}
