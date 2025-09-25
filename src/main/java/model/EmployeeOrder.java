@@ -5,13 +5,14 @@ import java.time.LocalDateTime;
 
 public class EmployeeOrder implements Serializable {
     private LocalDateTime dateTime;     // 注文日時
-    private String itemName;            // 弁当名
+    private int productId;           // 弁当名id
+    private String itemName;      //弁当名
     private int totalQuantity;          // 注文個数総計
     private int totalPrice;             // 商品毎注文金額総計
 
-    public EmployeeOrder(LocalDateTime dateTime, String itemName, int totalQuantity, int totalPrice) {
+    public EmployeeOrder(LocalDateTime dateTime, int totalQuantity, int totalPrice, int productId) {
         this.dateTime = dateTime;
-        this.itemName = itemName;
+        this.productId = productId;
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
     }
@@ -24,12 +25,12 @@ public class EmployeeOrder implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public String getItemName() {
-        return itemName;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getTotalQuantity() {
@@ -47,4 +48,12 @@ public class EmployeeOrder implements Serializable {
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 }
