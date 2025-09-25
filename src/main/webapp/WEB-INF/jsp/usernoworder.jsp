@@ -6,7 +6,38 @@
     <meta charset="UTF-8">
     <title>注文確認・キャンセル</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
-    
+    <style> 
+/* 表で表示する */
+
+.order-table {
+	width: 80%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.order-table th, .order-table td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+}
+
+.order-table th {
+	background-color: #ffb84d;
+	color: black;
+}
+
+.header-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.sort-area {
+	display: flex;
+	align-items: center;
+}
+</style>
 </head>
 <body>
 <!-- 共通ヘッダー呼び出し -->

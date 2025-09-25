@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import logic.UserHisLogic;
+import logic.UserHisLogic.MonthlySummary;
 import model.EmployeeBean;
 
 /**
@@ -24,20 +26,25 @@ public class UserMypageServlet extends HttpServlet {
      */
     public UserMypageServlet() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(); 
-		EmployeeBean loginEmployee = (EmployeeBean)session.getAttribute("loginEmployee");
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();  
+        EmployeeBean employee = (EmployeeBean) session.getAttribute("employee");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usermypage.jsp");
-		dispatcher.forward(request, response);
-		
-	}
+        // 合計金額とカロリー取得
+        UserHisLogic logic = new UserHisLogic();
+        MonthlySummary summary = logic.getMonthlySummary(employee);
+
+        request.setAttribute("totalAmount", summary.getTotalPrice());
+        request.setAttribute("totalCalories", summary.getTotalCal());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usermypage.jsp");
+        dispatcher.forward(request, response);
+    }
+
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
