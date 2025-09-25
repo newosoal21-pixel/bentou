@@ -39,8 +39,8 @@
 			</table>
     </section>
 
-	<c:forEach var="list" items="${map}">
-		<section class="order-summary" items="${orderList}">
+	<c:forEach var="entry" items="${map}">
+		<section class="order-summary">
 	      <p>&lt;部署別&gt; ${entry.key} ${orderDate} 合計金額 ${totalPrice}円</p>
 	      <table>
 	        <table>
@@ -52,7 +52,7 @@
 					</tr>
 				</thead>
 					<tbody>
-						<c:forEach var="order" items="${orderList}">
+						<c:forEach var="order" items="${entry.value}">
 							<tr>
 								<td>${order.itemName}</td>
 								<td>${order.totalQuantity != null ? order.totalQuantity : ''}</td>

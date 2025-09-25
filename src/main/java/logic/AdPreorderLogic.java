@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import dao.OrderDAO;
 import model.AdminOrder;
@@ -15,7 +16,13 @@ public class AdPreorderLogic {
         return orderList;
     }
 
-    // 今日の注文を発注済みに更新
+    // 今日の注文一覧を取得
+    public Map<String, List<AdminOrder>> getDepartmentOrders() {
+        OrderDAO dao = new OrderDAO();
+        Map<String, List<AdminOrder>> map = dao.DepartmentOrders();
+        return map;
+    }
+   // 今日の注文を発注済みに更新
     public int markTodayOrdersAsOrdered() {
         OrderDAO dao = new OrderDAO();
         try {

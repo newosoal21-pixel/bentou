@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import model.AdminOrder;
-import model.OrderDate;
 import model.TotalBuy;
 
 public class OrderDAO {
@@ -157,6 +156,7 @@ public class OrderDAO {
         return totalList; //戻り値は TotalBuy（社員ID・名前・合計金額）のリスト
 }
     //「注文された年と月の組み合わせをすべて取得する」ためのメソッド
+    /*
     public List<OrderDate> getOrderDates() throws SQLException {
         List<OrderDate> dateList = new ArrayList<>();
 
@@ -177,10 +177,10 @@ public class OrderDAO {
 
         return dateList;
     }
-    
-    public List<AdminOrder> DepartmentOrders() throws SQLException{
-    	List<AdminOrder> orderList = new ArrayList<>();
-    	Map<String, AdminOrder> map = new LinkedHashMap<>();
+    */
+    public Map<String, List<AdminOrder>> DepartmentOrders(){
+    	//
+    	Map<String, List<AdminOrder>> map = new LinkedHashMap<>();
     	
     	try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -205,38 +205,37 @@ public class OrderDAO {
         try (Connection conn =DBManager.getConnection();
                 PreparedStatement pStmt = conn.prepareStatement(sql);
                 ResultSet rs = pStmt.executeQuery()) {
-        	
+            List<AdminOrder> orderList= new ArrayList<>();
+             
         	while (rs.next()) {
+        		
                 String itemName = rs.getString("itemname");
-                int quantity = rs.getInt("quantity");
-                int price = rs.getInt("price");
+                int quantity = rs.getInt("total_quantity");
+                int price = rs.getInt("total_price");
                 String departmentName = rs.getString("department_name");
-                int flag = rs.getInt("order_flag"); 
-                
-                int totalPrice = quantity * price;
 
-                if (map.containsKey(departmentName)) {
-                    AdminOrder a = map.get(departmentName);
-                    a.setItemName(a.getItemName());
-                    a.setTotalQuantity(a.getTotalQuantity() + quantity);
-                    a.setTotalPrice(a.getTotalPrice() + totalPrice);
-                                        
-                } else {
-                    AdminOrder a = new AdminOrder(departmentName, quantity, totalPrice, itemName);
-                    a.setOrderFlag(flag);
-                    System.out.println(a);
-                    map.put(departmentName, a);
+                AdminOrder a = new AdminOrder();
+                a.setItemName(itemName);
+                a.setTotalQuantity(quantity);
+                a.setTotalPrice(price);
+                a.setDepartmentName(departmentName);
+                System.out.println("1:" + a);
+                //orderList = map.get(departmentName);
+                if(orderList==null) {
+                    orderList = new ArrayList<>();
+                    map.put(departmentName, orderList);
                 }
+                orderList.add(a);
+                //System.out.println("2:" + orderList.size());
             }
 
-            orderList.addAll(map.values());
-
+ 
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
 
-        return orderList;
+        return map;
     }
 }
     

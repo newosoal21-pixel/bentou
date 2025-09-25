@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -80,12 +81,16 @@ public class AdminOrderServlet extends HttpServlet {
 	    // 更新後の最新リストを取得して表示
 	    List<AdminOrder> orderList = logic.execute();
 
+	    
+	    Map<String, List<AdminOrder>> map = logic.getDepartmentOrders();
+	    
 	    boolean orderCompleted = orderList != null && orderList.stream()
 	        .allMatch(o -> o.getOrderFlag() == 1);
 
 	    request.setAttribute("orderList", orderList);
 	    request.setAttribute("orderCompleted", orderCompleted);
 	    request.setAttribute("updatedCount", updatedCount);
+	    request.setAttribute("map", map);
 
 	    request.getRequestDispatcher("/WEB-INF/jsp/admin/adordercomp.jsp")
 	           .forward(request, response);

@@ -8,7 +8,7 @@ public class AdminOrder implements Serializable {
     private int totalPrice;
     private String departmentName;
     private int orderFlag; // 追加: 0 未発注, 1 発注済
-
+    public AdminOrder() {}
     public AdminOrder(String itemName, int totalQuantity, int totalPrice, String departmentName) {
         this.itemName = itemName;
         this.totalQuantity = totalQuantity;
