@@ -219,8 +219,8 @@ public class OrderDAO {
                 a.setTotalQuantity(quantity);
                 a.setTotalPrice(price);
                 a.setDepartmentName(departmentName);
-                System.out.println("1:" + a);
-                //orderList = map.get(departmentName);
+                //System.out.println("1:" + a);
+                orderList = map.get(departmentName);
                 if(orderList==null) {
                     orderList = new ArrayList<>();
                     map.put(departmentName, orderList);
