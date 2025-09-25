@@ -43,6 +43,7 @@ public class OrderFormServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
+		/*データベースに登録する処理*/
 		String action = request.getParameter("action");
 
 		if ("submit".equals(action)) {
@@ -50,15 +51,15 @@ public class OrderFormServlet extends HttpServlet {
 
 		    try {
 		        OrderDAO dao = new OrderDAO();
-		        EmployeeBean employee = (EmployeeBean) session.getAttribute("loginEmployee");
+		        EmployeeBean employee = (EmployeeBean) session.getAttribute("employee");
 		        
-		        /* テスト用 */
-		        if (employee == null) {
-		            employee = new EmployeeBean();
-		            employee.setEmployeesId(999); // 仮の従業員ID
-		     
-		        }
-		        dao.saveOrders(orderList, employee); // ← セッションから取得した employee を渡す
+//		        /* テスト用 */
+//		        if (employee == null) {
+//		            employee = new EmployeeBean();
+//		            employee.setEmployeesId(999); // 仮の従業員ID
+//		     
+//		        }
+		        dao.saveOrders(orderList, employee); 
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 
@@ -71,7 +72,7 @@ public class OrderFormServlet extends HttpServlet {
 
 
 		
-		
+		/*確認画面の処理*/
 		ProductviewLogic logic = new ProductviewLogic();
 	    List<Product> productList = logic.execute();
 
@@ -84,10 +85,11 @@ public class OrderFormServlet extends HttpServlet {
 	                int totalPrice = quantity * product.getPrice();
 	                EmployeeOrder order = new EmployeeOrder(
 	                    LocalDateTime.now(),
-	                    product.getName(),
 	                    quantity,
-	                    totalPrice
+	                    totalPrice,
+	                    product.getId()
 	                );
+	                order.setItemName(product.getName());
 	                orderList.add(order);
 	            }
 	        }
