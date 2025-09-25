@@ -27,6 +27,7 @@
             <button type="submit" class="action-btn">注文フォームへ戻る</button>
         </form>
         <form action="OrderFormServlet" method="post" style="display:inline;">
+        <input type="hidden" name="action" value="submit">
             <button type="submit" class="action-btn">注文する</button>
         </form>
     </div>
