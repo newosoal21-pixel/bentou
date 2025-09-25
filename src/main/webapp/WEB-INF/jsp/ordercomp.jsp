@@ -14,7 +14,7 @@
 <div class="main">
     <h1>注文完了</h1>
     <div class="message">
-        注文が完了しました!!!!!!<br>
+        注文が完了しました!<br>
         ご利用ありがとうございました！
     </div>
     <form action="LogoutServlet" method="post">
