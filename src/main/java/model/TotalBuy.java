@@ -30,4 +30,10 @@ public class TotalBuy implements Serializable {
     public void setTotalBuy(int totalBuy) {
         this.totalBuy = totalBuy;
     }
+
+	@Override
+	public String toString() {
+		return "TotalBuy [employeesId=" + employeesId + ", userName=" + userName + ", totalBuy=" + totalBuy + "]";
+	}
+    
 }
