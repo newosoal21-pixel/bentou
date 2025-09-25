@@ -73,7 +73,7 @@
 			</div>
 		</form>
 	</main>
-	
+
 	<!-- JavaScript（数量増減・締め切りカウントダウン） -->
 	  <script>
 	    document.addEventListener('DOMContentLoaded', () => {
