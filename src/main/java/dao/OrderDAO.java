@@ -296,5 +296,29 @@ public class OrderDAO {
     }
     
     
+    // ----------------------------
+    // 削除メソッド（オーダーをDBから削除）
+    // ----------------------------
+    
+    public boolean cancelOrders(int ordersId) {
+        boolean success = false;
+
+        String sql = "DELETE FROM orders WHERE orders_id = ?";
+
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, ordersId);
+            int rows = pstmt.executeUpdate();
+            success = rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+
     
 }

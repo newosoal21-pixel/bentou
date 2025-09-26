@@ -57,8 +57,20 @@ public class UserNewOrderServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		//HttpSession session = request.getSession();
+		
+		// ① hiddenで送られた orders_id を取得
+        int ordersId = Integer.parseInt(request.getParameter("orders_id"));
+
+     // ② Logic（UserHisLogic）を使ってキャンセル処理を実行
+        UserHisLogic logic = new UserHisLogic();
+        boolean result = logic.execute(ordersId);
+
+        response.sendRedirect(request.getContextPath() + "/UserNewOrderServlet");
+
+
+		    return;
+		}
+	
 
 }

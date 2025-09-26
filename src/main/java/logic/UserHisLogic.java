@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import dao.DBManager;
+import dao.OrderDAO;
 import model.EmployeeBean;
 import model.EmployeeOrder;
 import model.OrderBlock;
@@ -200,5 +201,15 @@ public class UserHisLogic {
 
         // Mapの値をListに変換して返す（注文IDの昇順）
         return new ArrayList<>(orderBlocksMap.values());
+    }
+    
+    /**
+     * 注文をキャンセル（削除）するロジック
+     * @param ordersId キャンセル対象の注文ID
+     * @return true: キャンセル成功 / false: キャンセル失敗
+     */
+    public boolean execute(int ordersId) {
+        OrderDAO dao = new OrderDAO();
+        return dao.cancelOrders(ordersId);
     }
 }
