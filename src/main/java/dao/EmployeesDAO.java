@@ -135,7 +135,52 @@ public class EmployeesDAO {
 	        return false;
 	    }
 	}
+	
+	//EmployeeIDからpasswardを取得するメソッド//
+    public String getPasswordByEmployeeId(String employeeId) {
+        String password = null;
+
+        String sql = "SELECT PASSWORD FROM EMPLOYEES  WHERE EMPLOYEES_ID = ?";
+
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pStmt = conn.prepareStatement(sql)) {
+
+            pStmt.setString(1, employeeId);
+            ResultSet rs = pStmt.executeQuery();
+
+            if (rs.next()) {
+                password = rs.getString("PASSWORD");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return password;
+    }
+    
+   //新しいパスワードをデータベースに登録する//
+    public boolean updatePassword(String employeeId, String changePassword) {
+        String sql = "UPDATE EMPLOYEES SET PASSWORD = ? WHERE EMPLOYEES_ID = ?";
+
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pStmt = conn.prepareStatement(sql)) {
+
+            pStmt.setString(1, changePassword);
+            pStmt.setString(2, employeeId);
+
+            int rowsAffected = pStmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+
+
 
 
 

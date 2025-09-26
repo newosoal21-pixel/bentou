@@ -16,19 +16,25 @@
             <div class="form-group">
                 ● 現在のパスワード
                 <br>
-                <input type="password" name="currentPassword" required>
+                <input type="password" name="nowPassword" required>
+                <br>
+                  <span class="error"><c:out value="${errorNow}" /></span>
             </div>
 
             <div class="form-group">
                 ● 変更後のパスワード（4文字以上）
                 <br>
-                <input type="password" name="newPassword" minlength="4" required>
+                <input type="password" name="changePassword"  required>
+                <br>
+                 <span class="error"><c:out value="${errorChange}" /></span>
             </div>
 
             <div class="form-group">
                 ● パスワード確認用（再度入力）
                 <br>
-                <input type="password" name="confirmPassword" required>
+                <input type="password" name="comparisonPassword" required>
+                <br>
+                 <span class="error"><c:out value="${errorComparison}" /></span>
             </div>
 
             <button type="submit" class="button">変更する</button>
