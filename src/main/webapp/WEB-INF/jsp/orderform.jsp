@@ -21,12 +21,14 @@
 }
 
 .product img {
-	width: 100%;
-	max-width: 200px;
-	height: auto;
-	border-radius: 8px;
-	object-fit: cover;
+  width: 100%;
+  max-width: 200px;
+  height: 150px; 
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
 }
+
 </style>
 </head>
 <body>
