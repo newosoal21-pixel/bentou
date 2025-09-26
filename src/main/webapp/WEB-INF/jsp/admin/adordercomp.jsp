@@ -65,8 +65,9 @@
 	 </c:forEach>
 	 
     <div class="actions">
-      <button>印刷</button>
-      <button>CSV DL</button>
+      <button type="button" onclick="window.print()">印刷</button>
+        <form method="" action="" style="display: inline;">
+            <button type="submit">CSV DL</button>
     </div>
   </main>
   <%@ include file="/common/footer.jsp" %>
