@@ -6,8 +6,9 @@
   <div class="user-info-container">
     <div class="user-info">
       管理者用<br>
-      社員ID ${sessionScope.employeeId} <br>
-      名前 ${sessionScope.employeeName}
+      社員ID ${sessionScope.employee.employeesId} <br>
+      部署名 ${sessionScope.employee.departmentName}<br>
+      名前 ${sessionScope.employee.userName}
     </div>
     <a href="WelcomeServlet">
       <img src="${pageContext.request.contextPath}/images/rice.png" alt="ごはんイラスト" />

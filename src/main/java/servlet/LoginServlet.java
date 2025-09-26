@@ -114,14 +114,15 @@ public class LoginServlet extends HttpServlet {
 	             request.getRequestDispatcher("/WEB-INF/jsp/userbase.jsp").forward(request, response);
 	        	 return;
 	         }
-
-	        	 
-	        } else {
+	        }else {
 	            // 認証失敗
 	            request.setAttribute("errorMessage", "社員IDもしくはパスワードが間違っています。");
 
-	            // ログイン画面に戻る
-	            request.getRequestDispatcher("/WEB-INF/jsp/userlogin.jsp").forward(request, response);
+	            if ("admin".equals(button)) {
+	                request.getRequestDispatcher("/WEB-INF/jsp/admin/adminlogin.jsp").forward(request, response);
+	            } else {
+	                request.getRequestDispatcher("/WEB-INF/jsp/userlogin.jsp").forward(request, response);
+	            }
 	        }
 	     
 	    	 

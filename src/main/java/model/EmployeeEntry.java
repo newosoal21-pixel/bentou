@@ -62,7 +62,7 @@ public class EmployeeEntry implements Serializable {
 	@Override
 	public String toString() {
 		return "EmployeeEntry [employeesId=" + employeesId + ", userName=" + userName + ", password=" + password
-				+ ", departmentId=" + departmentId + departmentId + "departmentName" + "]";
+				+ ", departmentId=" + departmentId + "]";
 	}
 	
 	

@@ -89,6 +89,11 @@
       font-size: 14px;
       color: #7A3E1D;
     }
+     .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
   </style>
 </head>
 <body>
@@ -109,7 +114,16 @@
         <label for="password">・管理者用パスワード</label>
         <input type="password" id="password" name="password" required>
       </div>
-      <button type="submit" class="login-button">ログイン</button>
+       <!-- エラーメッセージ（サーブレットから渡された時だけ表示） -->
+        <%
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+        %>
+            <div class="error"><%= errorMessage %></div>
+        <%
+            }
+        %>
+      <button type="submit"  name="button" value="admin" class="login-button">ログイン</button>
     </form>
   </main>
 
