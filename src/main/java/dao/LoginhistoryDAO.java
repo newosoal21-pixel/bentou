@@ -22,9 +22,11 @@ public class LoginhistoryDAO {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
         }
 		
-		String sql = "SELECT E.employees_id,E.user_name,L.login_time "
-				+ "From login_history L "
-				+ "join employees E ON L.employees_id = E.employees_id "
+		String sql = "SELECT E.employees_id, "
+				+ "       E.user_name, "
+				+ "       CONVERT_TZ(L.login_time, '+00:00', '-09:00') AS login_time "
+				+ "FROM login_history L "
+				+ "JOIN employees E ON L.employees_id = E.employees_id "
 				+ "ORDER BY L.login_time DESC";
 		System.out.println(sql);
 		
