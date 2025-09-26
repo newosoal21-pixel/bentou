@@ -6,11 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.AdOrderHistory;
 import model.AdminOrder;
 import model.EmployeeBean;
 import model.EmployeeOrder;
@@ -318,7 +320,52 @@ public class OrderDAO {
 
         return success;
     }
-
-
+    
+    
+    public List<AdOrderHistory> getTotalOrderDate() throws SQLException{
+    	List<AdOrderHistory> totalOrderDateList = new ArrayList<>();
+    	
+    	try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
+        }
+    	
+    	String sql = "SELECT  "
+    			+ "    DATE(O.orderdate) AS order_date, "
+    			+ "    P.itemname, "
+    			+ "    SUM(O.quantity) AS total_quantity, "
+    			+ "    SUM(O.quantity * P.price) AS total_price "
+    			+ "FROM orders O "
+    			+ "JOIN products P ON O.products_id = P.products_id "
+    			+ "GROUP BY DATE(O.orderdate), P.itemname "
+    			+ "ORDER BY order_date DESC, P.itemname;";
+    	
+    	System.out.println(sql);
+    	
+    	try (Connection conn =DBManager.getConnection();
+                PreparedStatement pStmt = conn.prepareStatement(sql);
+                ResultSet rs = pStmt.executeQuery()) {
+    		
+    		while(rs.next()) {
+    			
+    			LocalDate orderDate = rs.getDate("order_date").toLocalDate();
+    			String itemName = rs.getString("itemname");
+    			int totalQuantity = rs.getInt("total_quantity");
+    			int totalPrice = rs.getInt("total_price");
+    			
+    			AdOrderHistory a = new AdOrderHistory();
+    			a.setOrderDate(orderDate);
+    			a.setItemName(itemName);
+    			a.setTotalQuantity(totalQuantity);
+    			a.setTotalPrice(totalPrice);
+    			
+    			totalOrderDateList.add(a);
+    		}
+    	}
+    	
+    	return totalOrderDateList;
+    }
     
 }
+

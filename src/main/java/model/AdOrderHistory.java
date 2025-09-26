@@ -1,19 +1,19 @@
 package model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AdOrderHistory implements Serializable {
-    private LocalDateTime orderDate;
+    private LocalDate orderDate;
     private String itemName;
     private int totalQuantity;
     private int totalPrice;
 
-    public LocalDateTime getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

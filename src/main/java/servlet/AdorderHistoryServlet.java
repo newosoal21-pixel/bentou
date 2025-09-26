@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,6 +10,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import logic.AdoderHisLogic;
+import model.AdOrderHistory;
 
 /**
  * Servlet implementation class AdorderHistoryServlet
@@ -28,6 +33,18 @@ public class AdorderHistoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AdoderHisLogic logic = new AdoderHisLogic();
+		
+		List<AdOrderHistory> totalOrderDateList = null;
+		try {
+			totalOrderDateList = logic.execute();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("totalOrderDateList", totalOrderDateList);
+		
 		RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/admin/orderhistory.jsp");
 				dispatcher.forward(request, response);

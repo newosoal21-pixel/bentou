@@ -13,7 +13,7 @@
     <main>
         <h1>発注履歴</h1>
 
-        <form class="search-bar" method="get" action="orderhistory.jsp" >
+        <form class="search-bar" method="get" action="AdorderHistoryServlet" >
             <label for="year">年</label>
             <select id="year" name="year">
                 <option value="">--</option>
@@ -52,12 +52,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="order" items="${orderList}">
+                    <c:forEach var="order" items="${totalOrderDateList}">
                         <tr>
-                            <td>${order.date}</td>
-                            <td>${order.productName}</td>
-                            <td>${order.quantity}個</td>
-                            <td>${order.amount}円</td>
+                            <td>${order.orderDate}</td>
+                            <td>${order.itemName}</td>
+                            <td>${order.totalQuantity}個</td>
+                            <td>${order.totalPrice}円</td>
                         </tr>
                     </c:forEach>
                     <c:if test="${empty orderList}">
