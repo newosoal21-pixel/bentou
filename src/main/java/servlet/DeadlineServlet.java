@@ -38,7 +38,7 @@ public class DeadlineServlet extends HttpServlet {
 		String minute = ""; //締め切り分
 		try {
 			DeadlineLogic dl = new DeadlineLogic();
-			String deadline = dl.getDeadline(); //締め切りを取得(hh:mm形式)
+			String deadline = dl.getDeadlineStr(); //締め切りを取得(hh:mm形式)
 			System.out.println(deadline);//11:00:00
 			if (deadline != null && deadline.length() == 8) {
 				hour = deadline.substring(0, 2);

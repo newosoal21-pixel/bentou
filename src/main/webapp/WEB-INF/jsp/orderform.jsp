@@ -21,14 +21,13 @@
 }
 
 .product img {
-  width: 100%;
-  max-width: 200px;
-  height: 150px; 
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
+	width: 100%;
+	max-width: 200px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 8px;
+	display: block;
 }
-
 </style>
 </head>
 <body>
@@ -40,7 +39,7 @@
 		<!-- タイトルと日付 -->
 		<div class="form-header">
 			<h1>注文フォーム</h1>
-			<div class="order-date">0000/00/00</div>
+			<div class="order-date" id="order-date">0000/00/00</div>
 		</div>
 
 		<!-- 締め切りまでの時間 -->
@@ -77,13 +76,20 @@
 	</main>
 
 	<!-- JavaScript（数量増減・締め切りカウントダウン） -->
-	  <script>
+	<script>
 	    document.addEventListener('DOMContentLoaded', () => {
+
+			const orderDate = document.getElementById("order-date");
+			const date = new Date();
+			const year = date.getFullYear();
+			const month = String(date.getMonth()+1).padStart(2,'0');
+			const day = String(date.getDate()).padStart(2,'0');
+			orderDate.textContent =year+ '/' + month+'/'+day;
+				    
 	      document.querySelectorAll('.product').forEach(product => {
 	        const minusBtn = product.querySelector('.minus');
 	        const plusBtn = product.querySelector('.plus');
 	        const input = product.querySelector('input');
-
 	        minusBtn.addEventListener('click', () => {
 	          let value = parseInt(input.value, 10);
 	          if (value > 0) input.value = value - 1;
@@ -137,7 +143,7 @@
 	      }
 	    }
 	  </script>
-	  <!-- 共通フッター -->
+	<!-- 共通フッター -->
 	<%@ include file="/common/footer.jsp"%>
 
 </body>

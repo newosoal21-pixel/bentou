@@ -14,29 +14,31 @@
         <h1>発注履歴</h1>
 
         <form class="search-bar" method="get" action="AdorderHistoryServlet" >
-            <label for="year">年</label>
+            
             <select id="year" name="year">
                 <option value="">--</option>
                 <c:forEach var="y" begin="2020" end="2025">
                     <option value="${y}" <c:if test="${param.year == y}">selected</c:if>>${y}</option>
                 </c:forEach>
             </select>
+            <label for="year">年</label>
 
-            <label for="month">月</label>
+            
             <select id="month" name="month">
                 <option value="">--</option>
                 <c:forEach var="m" begin="1" end="12">
                     <option value="${m}" <c:if test="${param.month == m}">selected</c:if>>${m}</option>
                 </c:forEach>
             </select>
-
-            <label for="day">日</label>
+			<label for="month">月</label>
+            
             <select id="day" name="day">
                 <option value="">--</option>
                 <c:forEach var="d" begin="1" end="31">
                     <option value="${d}" <c:if test="${param.day == d}">selected</c:if>>${d}</option>
                 </c:forEach>
             </select>
+            <label for="day">日</label>
 
             <button type="submit" >検索</button>
         </form>

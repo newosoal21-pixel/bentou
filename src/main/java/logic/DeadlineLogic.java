@@ -1,12 +1,18 @@
 package logic;
 
 import dao.DeadlineDAO;
+import model.OrderDeadline;
 
 public class DeadlineLogic {
     private DeadlineDAO dao = new DeadlineDAO();
 
     // 締め切りのモデルを返す
-    public String getDeadline() {
+    public OrderDeadline getDeadline() {
+        return dao.getDeadline();
+    }
+
+    // 締め切りのモデルを返す
+    public String getDeadlineStr() {
         return dao.getDeadlineStr();
     }
 
