@@ -4,15 +4,33 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class LoginHistory implements Serializable {
-    private int loginHistoryID;
+	private String userName;
+	private int employeesId;
+    private int loginHistoryId;
     private LocalDateTime loginTime;
 
+    public String getUserName() {
+    	return userName;
+    }
+    
+    public void setUserName(String userName) {
+    	this.userName = userName;
+    }
+    
+    public int getEmployeesId() {
+    	return employeesId;
+    }
+    
+    public void setEmployeesId(int employeesId) {
+    	this.employeesId = employeesId;
+    }
+    
     public int getLoginHistoryID() {
-        return loginHistoryID;
+        return loginHistoryId;
     }
 
-    public void setLoginHistoryID(int loginHistoryID) {
-        this.loginHistoryID = loginHistoryID;
+    public void setLoginHistoryID(int loginHistoryId) {
+        this.loginHistoryId = loginHistoryId;
     }
 
     public LocalDateTime getLoginTime() {

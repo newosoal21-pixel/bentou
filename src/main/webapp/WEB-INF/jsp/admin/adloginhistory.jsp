@@ -13,19 +13,25 @@
     <main>
         <h1>ログイン履歴</h1>
 
+	<section class="loginHistory" Items="${loginHisList}">
         <table>
             <tr>
                 <th>社員ID</th>
                 <th>名前</th>
                 <th>年月日</th>
             </tr>
-            <tr>
-                <td>123-456-789</td>
-                <td>山田太郎</td>
-                <td>0000/00/00</td>
-            </tr>
+           <tbody>
+					<c:forEach var="login" items="${loginHisList}">
+						<tr>
+							<td>${login.employeesId}</td>
+							<td>${login.userName}</td>
+							<td>${login.loginTime}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
             <!-- 以下、JSTLやJavaでデータ繰り返し可 -->
         </table>
+	</section>
          <div class="actions">
             <button type="button" onclick="window.print()">印刷</button>
             <button type="submit" formaction="downloadCsv.jsp">CSV DL</button>
