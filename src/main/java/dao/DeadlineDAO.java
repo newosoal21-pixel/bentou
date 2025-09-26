@@ -4,40 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
-import model.OrderDeadline;
 
 public class DeadlineDAO {
 
     // 締切時間を取得する
-	public OrderDeadline getDeadline() {
-        OrderDeadline deadline = null;
+	//取得
+	public String getDeadline() {
+		//SQL(1件のみ取得)
+		String sql = "SELECT DEADLINE FROM ORDER_DEADLINE LIMIT 1";
+		// DBに接続 
+		try (Connection conn = DBManager.getConnection(); // DBに接続
+				PreparedStatement pStmt = conn.prepareStatement(sql)) { // SQLを準備
 
-        String sql = "SELECT DEADLINE_TIME FROM ORDER_DEADLINE";
+			// 実行して結果を取得
+			try (ResultSet rs = pStmt.executeQuery()) {
+				// レコードが1件でも存在すれば取り出す
+				if (rs.next()) {
+					return rs.getString("DEADLINE");
+				}
+			}
 
-        try (Connection conn = DBManager.getConnection();
-             PreparedStatement pStmt = conn.prepareStatement(sql);
-             ResultSet rs = pStmt.executeQuery()) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 
-            if (rs.next()) {
-                String deadlineStr = rs.getString("DEADLINE_TIME");
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                LocalTime time = LocalTime.parse(deadlineStr, formatter);
-
-                deadline = new OrderDeadline();
-                deadline.setDeadlineTime(time);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();  
-        }
-
-        return deadline;
-    }
-
+		return null;
+	}
 
 	public boolean updateDeadline(String newTime) {
 	    boolean success = false;

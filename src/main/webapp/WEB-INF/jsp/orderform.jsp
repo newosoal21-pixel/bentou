@@ -122,19 +122,19 @@
 	      target.setHours(hour, minute, 0, 0);
 	      let diffMs = target - now;
 
-<!--	      if (diffMs < 0) {-->
-<!--	        document.getElementById("deadline").textContent = '締め切りが過ぎました！';-->
-<!--	        document.getElementById("order-button").disabled = true;-->
-<!--	        return;-->
-<!--	      } else {-->
-<!--	        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));-->
-<!--	        const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));-->
-<!--	        const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);-->
-<!--	        document.getElementById("deadline").textContent =-->
-<!--	          '締め切りまで' + diffHours + ':' +-->
-<!--	          diffMinutes.toString().padStart(2, '0') + ':' +-->
-<!--	          diffSeconds.toString().padStart(2, '0');-->
-<!--	      }-->
+	      if (diffMs < 0) {
+	        document.getElementById("deadline").textContent = '締め切りが過ぎました！';
+	        document.getElementById("order-button").disabled = true;
+	        return;
+	      } else {
+	        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+	        const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+	        const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+	        document.getElementById("deadline").textContent =
+	          '締め切りまで' + diffHours + ':' +
+	          diffMinutes.toString().padStart(2, '0') + ':' +
+	          diffSeconds.toString().padStart(2, '0');
+	      }
 	    }
 	  </script>
 	  <!-- 共通フッター -->
