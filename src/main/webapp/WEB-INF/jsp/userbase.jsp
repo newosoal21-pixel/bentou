@@ -30,7 +30,7 @@
     <form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
       <button type="submit" class="action-btn">ログアウト</button>
     </form>
-    <form action="${pageContext.request.contextPath}/UserMypageServlet" method="get">
+    <form action="${pageContext.request.contextPath}/OrderFormServlet" method="get">
       <button type="submit" class="action-btn">注文へ</button>
     </form>
   </div>
