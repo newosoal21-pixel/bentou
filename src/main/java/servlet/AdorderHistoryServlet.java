@@ -33,17 +33,38 @@ public class AdorderHistoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String year = request.getParameter("year");
+	    String month = request.getParameter("month");
+	    String day = request.getParameter("day");
+		
 		AdoderHisLogic logic = new AdoderHisLogic();
 		
 		List<AdOrderHistory> totalOrderDateList = null;
-		try {
-			totalOrderDateList = logic.execute();
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
 		
+		
+		try {
+	        if ((year != null && !year.isEmpty()) &&
+	            (month != null && !month.isEmpty()) &&
+	            (day != null && !day.isEmpty())) {
+
+	            // 選択された日付を YYYY-MM-DD 形式に整形
+	            String selectedDate = String.format("%04d-%02d-%02d",
+	                    Integer.parseInt(year),
+	                    Integer.parseInt(month),
+	                    Integer.parseInt(day));
+
+	            totalOrderDateList = logic.executeByDate(selectedDate);
+	        } else {
+	            // 日付未選択なら全件取得
+	            totalOrderDateList = logic.execute();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 		request.setAttribute("totalOrderDateList", totalOrderDateList);
+		
+		
 		
 		RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/admin/orderhistory.jsp");
