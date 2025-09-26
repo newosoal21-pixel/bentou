@@ -25,7 +25,7 @@
 						<tr>
 							<td>${login.employeesId}</td>
 							<td>${login.userName}</td>
-							<td>${login.loginTime}</td>
+							<td>${login.loginTimeStr}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

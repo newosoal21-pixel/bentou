@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class LoginhistoryDAO {
 				+ "ORDER BY L.login_time DESC";
 		System.out.println(sql);
 		
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+		
 		try (Connection conn =DBManager.getConnection();
                 PreparedStatement pStmt = conn.prepareStatement(sql);
                 ResultSet rs = pStmt.executeQuery()) {
@@ -43,6 +47,10 @@ public class LoginhistoryDAO {
 				a.setUserName(userName);
 				a.setEmployeesId(employeesId);
 				a.setLoginTime(loginTime);
+				
+				// フォーマットして文字列に
+                String loginTimeStr = (loginTime != null) ? loginTime.format(formatter) : "";
+                a.setLoginTimeStr(loginTimeStr);
 				
                 loginHisList.add(a);
 

@@ -8,6 +8,9 @@ public class LoginHistory implements Serializable {
 	private int employeesId;
     private int loginHistoryId;
     private LocalDateTime loginTime;
+    
+    // 表示用
+    private String loginTimeStr;
 
     public String getUserName() {
     	return userName;
@@ -40,4 +43,11 @@ public class LoginHistory implements Serializable {
     public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
+    public String getLoginTimeStr() {
+    	return loginTimeStr; 
+    }
+    public void setLoginTimeStr(String loginTimeStr) {
+    	this.loginTimeStr = loginTimeStr; 
+    }
+    
 }
