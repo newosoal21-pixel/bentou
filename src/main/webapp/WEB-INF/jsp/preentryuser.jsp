@@ -69,16 +69,18 @@
     </ul>
 
     <div class="btn-area">
-        <form action="NewAduserServlet" method="get" style="display:inline;">
-            <button type="submit" class="action-btn">キャンセル</button>
+         <form action="LoginServlet" method="get" style="display:inline;">
+            <button type="submit" name="action" value="cancel"  class="action-btn">キャンセル</button>
         </form>
+   
         <form action="NewAduserServlet" method="post" style="display:inline;">
             <!-- 隠しフィールドで値を送信 -->
-            <input type="hidden" name="department" value="${employee.departmentName}">
-            <input type="hidden" name="employeeId" value="${employee.employeesId}">
+            <input type="hidden" name="departmentName" value="${employee.departmentName}">
+            <input type="hidden" name="departmentId" value="${employee.departmentId}">
+            <input type="hidden" name="employeesId" value="${employee.employeesId}">
             <input type="hidden" name="password" value="${employee.password}">
-            <input type="hidden" name="name" value="${employee.userName}">
-            <button type="submit" class="action-btn">OK</button>
+            <input type="hidden" name="userName" value="${employee.userName}">
+            <button type="submit" name="button" value="OK" class="action-btn">OK</button>
         </form>
     </div>
 </div>

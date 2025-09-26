@@ -12,12 +12,12 @@ public class UserRegistLogic {
     }
 
     /**
-     * バリデーションを実行し、問題がなければ登録処理を行う
+     * バリデーションを実行し、問題がなければnullを返す
      * @param employeeEntry ユーザー入力情報
      * @param passwordCheck 確認用パスワード
      * @return エラーメッセージ（問題なければnull）
      */
-    public String validateAndRegister(EmployeeEntry employeeEntry, String passwordCheck) {
+    public String validate(EmployeeEntry employeeEntry, String passwordCheck) {
         // 全項目が入力されているか検証
         if (employeeEntry.getDepartmentId() == 0 || 
             employeeEntry.getUserName() == null || employeeEntry.getUserName().isEmpty() ||
@@ -36,12 +36,13 @@ public class UserRegistLogic {
         if (!employeeEntry.getPassword().equals(passwordCheck)) {
             return "パスワードと確認用パスワードが一致しません。";
         }
-        
+        return null;
+    }
+    
+    //2025/09/26 regist 追加
+    public String regist(EmployeeEntry employeeEntry) {
         // DAOを呼び出してデータベースに登録
         try {
-            // ここでは部署名をIDに変換する処理を省略します。
-            // 実際には、departmentNameからdepartment_idを取得するDAOメソッドが必要です。
-            int departmentId = 1; // ダミーの部署ID
 
             boolean isRegistered = employeeDAO.registerUser(
                 employeeEntry.getEmployeesId(),
@@ -60,5 +61,6 @@ public class UserRegistLogic {
             e.printStackTrace();
             return "登録中にエラーが発生しました。";
         }
+
     }
 }

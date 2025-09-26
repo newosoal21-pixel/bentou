@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.EmployeeBean;
-import model.EmployeeEntry;
 import model.EmployeesList;
 
 public class EmployeesDAO {
@@ -46,26 +45,6 @@ public class EmployeesDAO {
 	     return null;
 	
 	}
-    public boolean insert(EmployeeEntry entry) {
-        String sql = "INSERT INTO EMPLOYEES (EMPLOYEE_ID, PASSWORD, USER_NAME, DEPARTMENT_ID) VALUES (?, ?, ?)";
-
-        try (Connection conn = DBManager.getConnection();
-             PreparedStatement pStmt = conn.prepareStatement(sql)) {
-        	
-        	pStmt.setInt(1, entry.getEmployeesId());
-        	pStmt.setString(2, entry.getPassword());
-        	pStmt.setString(3, entry.getUserName());
-                                 
-
-            int result = pStmt.executeUpdate();
-
-            return result > 0;  // 1件以上登録できたらtrue
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }        
-    }
     /**
      * ユーザー登録処理
      * @param employeeId 社員ID

@@ -36,6 +36,8 @@ public class LoginServlet extends HttpServlet {
 		//入力値の取得
 		 String next = request.getParameter("next");
 		 String button = request.getParameter("button");
+		 String action = request.getParameter("action");
+		 
 		 
 		 if("login".equals(next)) {
 				RequestDispatcher dispatcher =
@@ -56,7 +58,21 @@ public class LoginServlet extends HttpServlet {
 			 RequestDispatcher dispatcher =
 		                request.getRequestDispatcher("/WEB-INF/jsp/admin/adminlogin.jsp");
 		               dispatcher.forward(request, response);
-	}
+		 }
+		 if ("login".equals(action)) {
+			 RequestDispatcher dispatcher =
+		                request.getRequestDispatcher("/WEB-INF/jsp/userlogin.jsp");
+		               dispatcher.forward(request, response);
+			 
+		 }
+		 if ("cancel".equals(action)) {
+			 RequestDispatcher dispatcher =
+		                request.getRequestDispatcher("/WEB-INF/jsp/newuser.jsp");
+		               dispatcher.forward(request, response);
+			 
+		 }
+
+		     
 	}
 
 	/**

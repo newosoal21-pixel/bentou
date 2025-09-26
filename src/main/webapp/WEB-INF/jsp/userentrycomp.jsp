@@ -21,7 +21,7 @@
 
     <!-- ログイン画面へ遷移 -->
     <form action="LoginServlet" method="get">
-        <button type="submit" class="action-btn">ログインID・パスワード入力へ</button>
+        <button type="submit" name="action" value="login"  class="action-btn">ログインID・パスワード入力へ</button>
     </form>
 </div>
 
