@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/common/header.jsp" %>
+    <%@ include file="/common/header2.jsp" %>
 
 <div class="container">
     <h1>ログイン</h1>
