@@ -60,5 +60,5 @@
 
     <div class="actions">
         <button type="button" onclick="window.print()">印刷</button>
-        <form method="post" action="downloadCsv.jsp" style="display: inline;">
+        <form method="" action="" style="display: inline;">
             <button type="submit">CSV DL</button>

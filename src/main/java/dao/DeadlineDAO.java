@@ -57,5 +57,27 @@ public class DeadlineDAO {
 
 	    return success;
 	}
+	
+	public String getDeadlineStr() {
+
+        String sql = "SELECT DEADLINE_TIME FROM ORDER_DEADLINE";
+        String deadlineStr="";
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pStmt = conn.prepareStatement(sql);
+             ResultSet rs = pStmt.executeQuery()) {
+
+            if (rs.next()) {
+                deadlineStr = rs.getString("DEADLINE_TIME");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            return null;
+        }
+
+        return deadlineStr;
+    }
+
+
 }
 

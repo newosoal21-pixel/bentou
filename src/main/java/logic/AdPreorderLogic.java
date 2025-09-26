@@ -19,7 +19,7 @@ public class AdPreorderLogic {
     // 今日の注文一覧を取得
     public Map<String, List<AdminOrder>> getDepartmentOrders() {
         OrderDAO dao = new OrderDAO();
-        Map<String, List<AdminOrder>> map = dao.DepartmentOrders();
+        Map<String, List<AdminOrder>> map = dao.getDepartmentOrders();
         return map;
     }
    // 今日の注文を発注済みに更新
