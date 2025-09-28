@@ -12,7 +12,7 @@
 
 
 <!-- 共通ヘッダー呼び出し -->
-    <%@ include file="/common/header.jsp" %>
+    <%@ include file="/common/header3.jsp" %>
 
 <div class="main">
   <div class="welcome-area">
