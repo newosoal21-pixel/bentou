@@ -64,11 +64,18 @@ public class UserEditServlet extends HttpServlet {
         // 処理結果で遷移先を分ける
         if (result) {
         	
+            // ★★★ 修正点: DAO（Logic）経由で部署名を取得 ★★★
+            // 部署IDから部署名をDBから取得
+            String departmentName = logic.getDepartmentName(departmentId);
+            // ★★★ 修正終わり ★★★
+        	
             // ★★★ 修正点: セッションに反映する処理 ★★★
             // 1. EmployeeBeanのプロパティを更新
             employee.setUserName(name); 
             employee.setDepartmentId(departmentId);
-            // ※補足: 部署名 (departmentName) もEmployeeBeanにあれば更新します。
+            employee.setDepartmentName(departmentName); // DBから取得した最新の部署名をセット
+            
+            System.out.println(departmentName);
             
             // 2. 更新後のEmployeeBeanをセッションに上書き保存
             session.setAttribute("employee", employee); 

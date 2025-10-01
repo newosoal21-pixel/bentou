@@ -2,13 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserEditDAO {
-
-    // DB接続情報（あなたの環境に合わせて変更）
-   // private final String JDBC_URL = "jdbc:mysql://localhost:3306/lunchclerkDX?useSSL=false&serverTimezone=Asia/Tokyo";
-   // private final String DB_USER = "root";
-    //private final String DB_PASS = "root";
 
     /**
      * 名前と部署名を更新する
@@ -40,4 +37,43 @@ public class UserEditDAO {
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
+	
+    /* 部署IDに基づいて部署名を取得する
+    * @param departmentId 部署ID
+    * @return 部署名 (見つからない場合はnull)
+    */
+   public String findDepartmentNameById(int departmentId) {
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       String departmentName = null;
+
+       try {
+           conn = DBManager.getConnection();
+           
+           // DEPARTMENTSテーブルから部署名を取得するSQL
+           String sql = "SELECT department_name FROM DEPARTMENT WHERE department_id = ?";
+           pstmt = conn.prepareStatement(sql);
+           pstmt.setInt(1, departmentId);
+
+           rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               // 結果が取得できたら部署名をセット
+               departmentName = rs.getString("department_name");
+           }
+           // else 部署名が見つからなかった場合、departmentName は null のまま
+
+       } catch (SQLException e) {
+           e.printStackTrace();
+       } catch (Exception e) {
+            e.printStackTrace(); // DBManager.getConnection()などで発生する可能性のある例外
+       } finally {
+           // リソースのクローズ処理
+           try { if (rs != null) rs.close(); } catch (SQLException e) {}
+           try { if (pstmt != null) pstmt.close(); } catch (SQLException e) {}
+           try { if (conn != null) conn.close(); } catch (SQLException e) {}
+       }
+       return departmentName;
+   }
 }
