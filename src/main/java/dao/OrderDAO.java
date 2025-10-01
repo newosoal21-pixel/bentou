@@ -297,6 +297,41 @@ public class OrderDAO {
         }
     }
     
+    // ----------------------------
+    // 注文キャンセルの前処理メソッド
+    // ----------------------------
+
+    /**
+     * 指定されたordersIdに紐づく注文が発注済み（order_flag=1）であるかを確認する。
+     * ordersIdに紐づくレコードが1件でもorder_flag=1であれば、発注済みとみなす。
+     * * @param ordersId 注文ブロックID
+     * @return true: 発注済み（キャンセル不可）, false: 未発注（キャンセル可能）
+     */
+    public boolean isOrderAlreadyPlaced(int ordersId) {
+    	boolean isPlaced = false;
+
+    	// orders_idで検索し、order_flagが1のレコードがあるかを確認
+    	String sql = "SELECT 1 FROM orders WHERE orders_id = ? AND order_flag = 1 LIMIT 1";
+
+    	try (Connection conn = DBManager.getConnection();
+    			PreparedStatement pStmt = conn.prepareStatement(sql)) {
+
+    		pStmt.setInt(1, ordersId);
+         
+    		try (ResultSet rs = pStmt.executeQuery()) {
+    			// order_flagが1のレコードが1件でもあればtrue
+    			if (rs.next()) {
+    				isPlaced = true;
+    			}
+    		}
+    		
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		// DBエラーが発生した場合も安全のためキャンセル不可とするか、ログを出すべき
+    	}
+    	return isPlaced;
+    }
+    
     
     // ----------------------------
     // 削除メソッド（オーダーをDBから削除）
@@ -305,17 +340,26 @@ public class OrderDAO {
     public boolean cancelOrders(int ordersId) {
         boolean success = false;
 
+        // orders_id に紐づく全ての注文を削除するSQL
         String sql = "DELETE FROM orders WHERE orders_id = ?";
 
+        // データベース接続、PreparedStatementの準備、実行をtry-with-resourcesで行う
         try (Connection conn = DBManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            // プレースホルダーにordersIdをセット
             pstmt.setInt(1, ordersId);
-            int rows = pstmt.executeUpdate();
+            
+            // SQLを実行し、削除された行数を取得
+            int rows = pstmt.executeUpdate(); 
+            
+            // 1行以上削除されたら成功
             success = rows > 0;
 
         } catch (SQLException e) {
+            // DBアクセス時のエラーが発生した場合はログを出力し、falseを返す
             e.printStackTrace();
+            // success は false のまま
         }
 
         return success;

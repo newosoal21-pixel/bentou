@@ -164,6 +164,12 @@
 
 	<div class="container">
 		<h1>注文確認・キャンセル</h1>
+		
+		<c:if test="${not empty cancelError}">
+            <p style="color: red; font-weight: bold; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+                ${cancelError}
+            </p>
+        </c:if>
 		<div class="subtitle">＜現在の注文状況＞</div>
 
 		<c:forEach var="orderBlock" items="${orderList}" varStatus="status">

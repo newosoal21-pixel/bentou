@@ -204,12 +204,29 @@ public class UserHisLogic {
     }
     
     /**
-     * 注文をキャンセル（削除）するロジック
-     * @param ordersId キャンセル対象の注文ID
-     * @return true: キャンセル成功 / false: キャンセル失敗
+     * 注文キャンセルを実行する。発注済み（order_flag=1）の場合は実行しない。
+     * * @param ordersId キャンセル対象の注文ID
+     * @return true: キャンセル成功, false: キャンセル失敗または発注済み
      */
     public boolean execute(int ordersId) {
         OrderDAO dao = new OrderDAO();
-        return dao.cancelOrders(ordersId);
+
+        // 1. 発注済みフラグのチェック
+        // trueが返ってきたら発注済み（キャンセル不可）
+        if (dao.isOrderAlreadyPlaced(ordersId)) {
+            System.out.println("キャンセル失敗: 注文ID " + ordersId + " は既発注のためキャンセルできません。");
+            return false; // キャンセル不可
+        }
+
+        // 2. キャンセル処理を実行
+        boolean cancelSuccess = dao.cancelOrders(ordersId);
+
+        if (cancelSuccess) {
+            System.out.println("キャンセル成功: 注文ID " + ordersId + " の注文を削除しました。");
+        } else {
+            System.out.println("キャンセル失敗: 注文ID " + ordersId + " の削除処理が実行できませんでした。");
+        }
+
+        return cancelSuccess;
     }
 }

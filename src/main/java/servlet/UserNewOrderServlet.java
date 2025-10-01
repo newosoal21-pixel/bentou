@@ -57,17 +57,38 @@ public class UserNewOrderServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		
 		// ① hiddenで送られた orders_id を取得
         int ordersId = Integer.parseInt(request.getParameter("orders_id"));
 
      // ② Logic（UserHisLogic）を使ってキャンセル処理を実行
         UserHisLogic logic = new UserHisLogic();
-        boolean result = logic.execute(ordersId);
+        boolean result = logic.execute(ordersId); // true: 成功, false: 失敗または発注済み
 
+        if (!result) {
+            // キャンセルに失敗した場合（発注済みまたはDBエラー）
+            // エラーメッセージをリクエストスコープに保存し、元のページに戻る
+            // Logic側で発注済みと判断された場合のみこのメッセージを出すのが理想
+            request.setAttribute("cancelError", "すでに発注済み、またはキャンセルの処理に失敗しました。");
+            
+            // 再度GETメソッドと同じ表示ロジックを実行する必要がある
+            HttpSession session = request.getSession();
+            EmployeeBean employee = (EmployeeBean) session.getAttribute("employee");
+            
+            if (employee == null) {
+                response.sendRedirect("LoginServlet"); 
+                return;
+            }
+            
+            List<OrderBlock> orderList = logic.getTodayOrderBlocks(employee);
+            request.setAttribute("orderList", orderList);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usernoworder.jsp");
+			dispatcher.forward(request, response);
+            return;
+        }
+
+        // 成功した場合、リダイレクトで再表示
         response.sendRedirect(request.getContextPath() + "/UserNewOrderServlet");
-
 
 		    return;
 		}
