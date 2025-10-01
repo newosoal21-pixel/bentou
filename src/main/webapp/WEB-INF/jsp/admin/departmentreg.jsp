@@ -4,7 +4,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
-<title>部署の削除・追加</title>
+<title>部署名の変更・追加</title>
  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
@@ -24,21 +24,21 @@
         <tbody>
           <tr>
             <td>開発部</td>
-            <td><button class="action">削除</button></td>
+            <td><button class="action">変更</button></td>
           </tr>
           <tr>
             <td>技術部</td>
-            <td><button class="action">削除</button></td>
+            <td><button class="action">変更</button></td>
           </tr>
           <tr>
             <td>・・・・</td>
-            <td><button class="action">削除</button></td>
+            <td><button class="action">変更</button></td>
           </tr>
         </tbody>
       </table>
     </section>
     <section class="addSection">
-      <h2>部署新規作成</h2>
+      <h2>部署名新規作成</h2>
       <label for="deptName">部署名</label>
       <input type="text" id="deptName" placeholder="部" />
       <button class="action">登録</button>
