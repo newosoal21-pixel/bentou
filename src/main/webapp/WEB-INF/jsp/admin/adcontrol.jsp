@@ -22,7 +22,7 @@
       <li><a href="${pageContext.request.contextPath}/UserDeleteServlet">社員IDの削除</a></li>
       <li><a href="${pageContext.request.contextPath}/ProductsManagementServlet">メニューの登録・削除</a></li>
       <li><a href="${pageContext.request.contextPath}/AdorderHistoryServlet">発注履歴</a></li>
-      <li><a href="${pageContext.request.contextPath}/DepartmentAdServlet">部署の変更・追加</a></li>
+      <li><a href="${pageContext.request.contextPath}/DepartmentManagementServlet">部署の変更・追加</a></li>
     </ul>
   </main>
 
