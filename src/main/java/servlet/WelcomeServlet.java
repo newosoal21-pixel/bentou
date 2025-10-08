@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Welcome
  */
-@WebServlet("/WelcomeServlet")
+@WebServlet("/login")
 public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
