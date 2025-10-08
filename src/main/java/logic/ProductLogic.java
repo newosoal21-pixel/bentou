@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.ProductDAO;
@@ -29,5 +30,17 @@ public class ProductLogic {
     
     public boolean registerProduct(Product product) {
         return dao.insertProduct(product);
+    }
+    
+    // ★管理者画面（メニューの登録・削除）用のメソッドを追加
+    public List<Product> executeForAdmin(){
+        ProductDAO dao = new ProductDAO();
+        // ★findAllForAdmin() を呼び出す（display_flagのフィルタリングなし）
+        List<Product> productList = dao.findAllForAdmin();
+        
+        if (productList == null) {
+            productList = new ArrayList<>();
+        }
+        return productList;
     }
 }

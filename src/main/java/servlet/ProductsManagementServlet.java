@@ -39,7 +39,9 @@ public class ProductsManagementServlet extends HttpServlet {
         
         // Logicを実行し、商品リストを取得
         ProductLogic productLogic = new ProductLogic();
-        List<Product> productList = productLogic.execute();
+        
+        // ★修正箇所: 管理者画面用の新しいロジックメソッドを呼び出す
+        List<Product> productList = productLogic.executeForAdmin(); 
         
         // 取得したリストをリクエストスコープに格納
         request.setAttribute("productList", productList);
@@ -160,13 +162,13 @@ public class ProductsManagementServlet extends HttpServlet {
 			
 			ProductLogic productLogic = new ProductLogic();
 			// 現在のDB値を保持するためにリストを先に取得
-            List<Product> currentProductList = productLogic.execute();
+			List<Product> currentProductList = productLogic.executeForAdmin();
             
             int updateCount = 0;
             String updatedFlagName = "";
 
             if ("updateDisplay".equals(actionType)) {
-                updatedFlagName = "表示登録";
+                updatedFlagName = "表示変更";
             } else {
                 updatedFlagName = "削除";
             }

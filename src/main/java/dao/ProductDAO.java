@@ -73,11 +73,47 @@ public class ProductDAO {
 
 		return productList;
 	}
+	
+	// 商品管理画面用に、全商品（削除フラグ=0のみ）を取得するメソッド
+	public List<Product> findAllForAdmin() {
+	    List<Product> productList = new ArrayList<>();
+	    
+	    // ★修正箇所: display_flag=1 の条件は含めない
+	    String sql = "SELECT products_id, itemname, price, cal, image, display_flag, delete_flag "
+	               + "FROM PRODUCTS "
+	               + "WHERE delete_flag = 0 " // 削除されていない商品のみ
+	               + "ORDER BY products_id";
+
+	    try (Connection conn = DBManager.getConnection();
+	         PreparedStatement pStmt = conn.prepareStatement(sql);
+	         ResultSet rs = pStmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Product product = new Product(
+	                    rs.getInt("products_id"),
+	                    rs.getString("itemname"),
+	                    rs.getInt("price"),
+	                    rs.getInt("cal"),
+	                    rs.getString("image"),
+	                    rs.getBoolean("display_flag"),
+	                    rs.getBoolean("delete_flag"));
+	            productList.add(product);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	    return productList;
+	}
 
 	public List<Product> findByDetail() {
 		List<Product> productList = new ArrayList<>();
-		// ★SQLにdisplay_flag, delete_flagを追加し、削除されていない商品のみを取得
-		String sql = "SELECT products_id, itemname, price, cal, image, display_flag, delete_flag FROM PRODUCTS WHERE delete_flag = 0 ORDER BY products_id";
+		
+		// ★修正箇所: WHERE句に display_flag = 1 の条件を追加
+		String sql = "SELECT products_id, itemname, price, cal, image, display_flag, delete_flag "
+		           + "FROM PRODUCTS "
+		           + "WHERE display_flag = 1 AND delete_flag = 0 " // ★注文画面表示のため display_flag=1 を追加
+		           + "ORDER BY products_id";
 
 		try (Connection conn = DBManager.getConnection();
 				PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -102,6 +138,7 @@ public class ProductDAO {
 
 		}
 		return productList;
+
 
 	}
     
