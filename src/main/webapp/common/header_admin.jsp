@@ -10,7 +10,7 @@
       部署名 ${sessionScope.employee.departmentName}<br>
       名前 ${sessionScope.employee.userName}
     </div>
-    <a href="WelcomeServlet">
+    <a href="login">
       <img src="${pageContext.request.contextPath}/images/rice.png" alt="ごはんイラスト" />
     </a>
   </div>
