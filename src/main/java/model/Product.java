@@ -8,6 +8,8 @@ public class Product implements Serializable {
 	private int price;
 	private String imagePath;
 	private int cal;
+	private boolean displayFlag;
+    private boolean deleteFlag;
 	
 	 public Product(int id, String name, int price) {
 	        this.id = id;
@@ -23,6 +25,19 @@ public class Product implements Serializable {
 		this.cal = cal;
 		this.imagePath = imagePath;
 	}
+	
+	
+	public Product(int id, String name, int price, int cal, String imagePath, boolean displayFlag, boolean deleteFlag) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.cal = cal;
+        this.imagePath = imagePath;
+        this.displayFlag = displayFlag;
+        this.deleteFlag = deleteFlag;
+    }
+	
+	
 	public Product(int id, String name, int price, String imagePath) {
 		this.id = id;
 		this.name = name;
@@ -70,5 +85,19 @@ public class Product implements Serializable {
 		this.cal = cal;
 	}
 	
+	   public boolean isDisplayFlag() {
+	        return displayFlag;
+	    }
 
+	    public void setDisplayFlag(boolean displayFlag) {
+	        this.displayFlag = displayFlag;
+	    }
+
+	    public boolean isDeleteFlag() {
+	        return deleteFlag;
+	    }
+
+	    public void setDeleteFlag(boolean deleteFlag) {
+	        this.deleteFlag = deleteFlag;
+	    }
 }

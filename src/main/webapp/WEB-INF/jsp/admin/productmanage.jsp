@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>  <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
@@ -11,26 +11,33 @@
 <body>
   <main>
     <h1>メニューの登録・削除</h1>
+    
+        <%-- ★メッセージ表示エリアの追加 --%>
+    <c:if test="${not empty message}">
+        <p style="color: blue;">${message}</p>
+    </c:if>
+    
     <ul>
   ・登録
+   <form action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post" enctype="multipart/form-data">
   <div class="form-row">
-    <!-- 左：画像 -->
     <div class="upload-container">
       <p>プレビュー画面</p>
       <img id="preview-image" src="${pageContext.request.contextPath}/img/placeholder.png" alt="プレビュー" />
-      <input type="file" id="image-input" accept="image/*" />
+      <input type="file" id="image-input" name="imageFile" accept="image/*" required/>
     </div>
 
-    <!-- 右：入力フォーム -->
     <div class="form-fields">
-      <label>名前<input type="text" /></label>
-      <label>金額<input type="text" /></label>
-      <label>Kcal<input type="text" /></label>
-      <button class="action">登録する</button>
+      <label>名前<input type="text" name="itemName" required/></label>
+      <label>金額<input type="text" name="itemPrice" required/></label>
+      <label>Kcal<input type="text" name="itemCal" required/></label>
+      <button class="action" type="submit" name="actionType" value="insertProduct">登録する</button>
     </div>
   </div>
+  </form>
 
         ・登録済み
+        <form action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post">
         <table>
           <thead>
             <tr>
@@ -43,28 +50,33 @@
             </tr>
           </thead>
           <tbody>
+            <c:forEach var="product" items="${productList}">
             <tr>
-              <td>1</td>
-              <td>しゃけ弁当</td>
-              <td>600円</td>
-              <td>・・・・</td>
-              <td><input type="checkbox" checked /></td>
-              <td><input type="checkbox" /></td>
+              <td><c:out value="${product.id}" /></td>
+              <td><c:out value="${product.name}" /></td>
+              <td><c:out value="${product.price}円" /></td>
+              <td><c:out value="${product.cal}" /></td>
+              <td>
+                <input type="checkbox" 
+                       name="displayFlag_${product.id}" 
+                       value="on"
+                       ${product.displayFlag ? 'checked' : ''} />
+              </td>
+              <td>
+                <input type="checkbox" 
+                       name="deleteFlag_${product.id}" 
+                       value="on"
+                       ${product.deleteFlag ? 'checked' : ''} />
+              </td>
             </tr>
-            <tr>
-              <td>・・・・・</td>
-              <td>・・・・・</td>
-              <td>・・・・・</td>
-              <td>・・・・・</td>
-              <td><input type="checkbox" checked /></td>
-              <td><input type="checkbox" /></td>
-            </tr>
-          </tbody>
+            </c:forEach>
+            </tbody>
         </table>
         <div class="actions">
-        <button class="action">表示</button>
-        <button class="action">削除</button>
+        <button class="action" type="submit" name="actionType" value="updateDisplay">表示</button>
+        <button class="action" type="submit" name="actionType" value="updateDelete">削除</button>
         </div>
+        </form>
       </li>
     </ul>
   </main>
@@ -83,4 +95,3 @@
   });
 </script>
 </html>
-
