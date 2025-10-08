@@ -50,7 +50,7 @@
 ---
 
 ## 📜 ER図 
-      ![発注書出力画面のキャプチャ](screenshot/orderends.png)
+      ![発注書出力画面のキャプチャ](screenshot/gohanER.png)
 ---
 
 ## 🛠️ セットアップ
