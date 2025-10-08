@@ -34,7 +34,7 @@
         %>
 
         <div class="btn-area">
-            <button type="button" class="action-btn" onclick="location.href='welcome.jsp'">キャンセル</button>
+            <button type="button" class="action-btn" onclick="location.href='login'">キャンセル</button>
             <button type="submit" class="action-btn" name="button" value="user">ログイン</button>
         </div>
     </form>

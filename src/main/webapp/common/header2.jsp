@@ -3,7 +3,7 @@
 	<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <header>
   <!-- 左側：マイページ戻るボタン -->
-  <button class="action-btn" onclick="location.href='${pageContext.request.contextPath}/WelcomeServlet'">
+  <button class="action-btn" onclick="location.href='${pageContext.request.contextPath}/login'">
     TOPへ戻る>
     
   </button>
@@ -16,7 +16,7 @@
 		部署名 <br>
 		名前 
     </div>	
-    <a href="WelcomeServlet">
+    <a href="login">
       <img src="${pageContext.request.contextPath}/images/rice.png" alt="ごはんイラスト" />
     </a>
   </div>
