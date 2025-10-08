@@ -96,12 +96,20 @@
     * Eclipseを起動します。
     * メニューから「**ファイル**」→「**インポート**」→「**一般**」→「**既存プロジェクトをワークスペースへ**」を選択します。
     * 「**ルートディレクトリの選択**」からプロジェクトのアーカイブ（例: `bentou` フォルダ）を参照し、プロジェクトをワークスペースにインポートします。
-2.  **データベース設定**
+2.  **ライブラリ（JARファイル）の追加**
+    * 以下のライブラリファイルをダウンロードし、**プロジェクト内の `WEB-INF/lib` フォルダにコピー**してください。
+| ファイル名 | 用途 | ダウンロードリンク (Maven Central) |
+| :--- | :--- | :--- |
+| `jakarta.servlet.jsp.jstl-3.0.1.jar` | JSTL (JSP Standard Tag Library) の実装 | [Download](https://central.sonatype.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl/3.0.1) |
+| `jakarta.servlet.jsp.jstl-api-3.0.0.jar` | JSTL のAPI | [Download](https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api/3.0.0) |
+| `json-20250517.jar` | JSON処理ライブラリ | [Download](https://mvnrepository.com/artifact/org.json/json/20250517) |
+| `mysql-connector-j-8.0.33.jar` | MySQL JDBCドライバー | [Download](https://www.mysql.com/products/connector/j/) |
+3.  **データベース設定**
     * MySQL Workbenchを使用してデータベース環境を準備します。（データベース名、ユーザー名、パスワードを設定し、プロジェクトのDB接続設定と一致させてください。）
     * **必要なテーブル作成SQLは、以下のファイルを参照して実行してください。**
         * `bento-src-main-webapp-WEB-INF-DB` フォルダ内にある **`ごはん係DXデータベース初期作SQL文.txt`**
     * 初期データを投入します。
-3.  **サーバーへのデプロイ・起動**
+4.  **サーバーへのデプロイ・起動**
     * Eclipseでサーバーを起動した後、プロジェクトの起点となる **ログイン画面のURLにアクセス** します。
     * **または、** `bento-src-main-java-servlet` フォルダ内の **`WelcomeServlet.java`** を右クリックし、「**実行**」→「**サーバーから実行**」を選択してアプリケーションを起動します。（この操作により、自動的に `/login` パスでブラウザが開きます。）
 
