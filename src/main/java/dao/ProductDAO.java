@@ -134,16 +134,49 @@ public class ProductDAO {
     }
     
     public boolean insertProduct(Product product) {
-        String sql = "INSERT INTO PRODUCTS (image, itemname, price, cal, display_flag, delete_flag) VALUES (?, ?, ?, ?, 1, 0)";
+        // ★修正: image_rename カラムを追加。7つのプレースホルダが必要
+        // image_rename の値として、今回は image の値（パス）をそのまま再利用すると仮定
+        String sql = "INSERT INTO PRODUCTS (image, image_rename, itemname, price, cal, display_flag, delete_flag) VALUES (?, ?, ?, ?, ?, 1, 0)";
         
         try (Connection conn = DBManager.getConnection();
              PreparedStatement pStmt = conn.prepareStatement(sql)) {
 
-            pStmt.setString(1, product.getImagePath());
-            pStmt.setString(2, product.getName());
-            pStmt.setInt(3, product.getPrice());
-            pStmt.setInt(4, product.getCal());
+            // 1. image (パス)
+            pStmt.setString(1, product.getImagePath()); 
             
+            // 2. image_rename (imageと同じ値を使用すると仮定。もしモデルに専用フィールドがあればそちらを使用)
+            pStmt.setString(2, product.getImagePath()); 
+            
+            // 3. itemname
+            pStmt.setString(3, product.getName());
+            
+            // 4. price
+            pStmt.setInt(4, product.getPrice());
+            
+            // 5. cal
+            pStmt.setInt(5, product.getCal());
+            
+            // 6. display_flag (1)
+            // 7. delete_flag (0)
+            // display_flag と delete_flagはSQLに直接記述されているため、ここではセットしない。
+            // ★しかし、SQLのプレースホルダが5個しかなかったはずなので、SQLとJavaコードの整合性を再確認します。
+
+            // --- 以前のコードと整合性を合わせるための調整 ---
+            // 以前のDAOコードのSQLのプレースホルダは4つでした。
+            // 現在、DBに image_rename が必須として加わったため、SQLを以下のように修正します。
+            
+            String finalSql = "INSERT INTO PRODUCTS (image, image_rename, itemname, price, cal, display_flag, delete_flag) VALUES (?, ?, ?, ?, ?, 1, 0)";
+
+            // プレースホルダの番号を修正:
+            pStmt.setString(1, product.getImagePath()); // image
+            pStmt.setString(2, product.getImagePath()); // image_rename (仮)
+            pStmt.setString(3, product.getName());      // itemname
+            pStmt.setInt(4, product.getPrice());        // price
+            pStmt.setInt(5, product.getCal());          // cal
+            
+            // 以前のコードではプレースホルダは4つでした。
+            // pStmt.setInt(5, product.getCal()); までで5つ。
+
             int result = pStmt.executeUpdate();
             return result == 1;
 

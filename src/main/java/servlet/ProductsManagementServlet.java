@@ -21,7 +21,7 @@ import model.Product;
  * Servlet implementation class ProductsManagementServlet
  */
 @WebServlet("/ProductsManagementServlet")
-@MultipartConfig(location = "/tmp", maxFileSize = 1048576, maxRequestSize = 5242880) // サイズは環境に合わせて調整してください
+@MultipartConfig(maxFileSize = 1048576, maxRequestSize = 5242880) // サイズは環境に合わせて調整してください
 public class ProductsManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -53,15 +53,34 @@ public class ProductsManagementServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		
 		request.setCharacterEncoding("UTF-8"); 
 		
 		String actionType = request.getParameter("actionType");
+		
+		System.out.println("--- doPostメソッドが呼び出されました ---");
+		System.out.println("Action Type: " + actionType);
+		
+		if (actionType == null) {
+		    System.out.println("ERROR: actionTypeがnullです。");
+            
+            try {
+                // ファイルデータ（Part）が取得できるか試す
+                Part fileTest = request.getPart("imageFile");
+                // もしPartがnullでなければ、データは届いているが、actionTypeの取得に失敗している
+                System.out.println("Image Part Status: " + (fileTest != null ? "FOUND" : "NOT FOUND")); 
+            } catch (Exception e) {
+                System.out.println("Multipart error: " + e.getMessage());
+            }
+            
+		}
 		
 		// -----------------------------------------------------------------
 		// 新規商品登録処理
 		// -----------------------------------------------------------------
 		if ("insertProduct".equals(actionType)) {
+			
 			
 			String itemName = request.getParameter("itemName");
 			String itemPriceStr = request.getParameter("itemPrice");
@@ -88,7 +107,7 @@ public class ProductsManagementServlet extends HttpServlet {
 			    imageFileName = UUID.randomUUID().toString() + extension;
 			    
 			    // サーバーの保存先パス（/img/products/）。実際の環境に合わせてパスを修正してください
-			    String savePath = getServletContext().getRealPath("/img/products/"); 
+			    String savePath = getServletContext().getRealPath("/images"); 
 			    File saveDir = new File(savePath);
 			    if (!saveDir.exists()) {
 			        saveDir.mkdirs();
@@ -102,7 +121,7 @@ public class ProductsManagementServlet extends HttpServlet {
 			        itemName, 
 			        itemPrice, 
 			        itemCal, 
-			        imageFileName != null ? "img/products/" + imageFileName : null // DBに保存するパス
+			        imageFileName != null ? "images/" + imageFileName : null // DBに保存するパス
 			);
 			
 			// Logicを呼び出し登録
