@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
 	         // --- ログイン履歴書き込み処理 ---
 	         
 	         // データベース接続情報 (環境に合わせて変更してください)
-	         final String JDBC_URL = "jdbc:mysql://localhost:3306/lunchclerkDX?useSSL=false&serverTimezone=Asia/Tokyo"; // 変数名を修正
+	         final String JDBC_URL = "jdbc:mysql://localhost:3306/lunchclerkDX?useSSL=false&serverTimezone=Asia/Tokyo&"; // 変数名を修正
 	         final String DB_USER = "root";
 	         final String DB_PASS = "root";
 

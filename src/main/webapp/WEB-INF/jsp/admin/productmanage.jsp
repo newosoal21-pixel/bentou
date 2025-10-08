@@ -1,50 +1,58 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>  <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>  
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
 <title>メニューの登録・削除</title>
- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+  
 </head>
  <%@ include file="/common/header_admin.jsp" %>
 <body>
   <main>
     <h1>メニューの登録・削除</h1>
     
-        <%-- ★メッセージ表示エリアの追加 --%>
+    <%-- ★メッセージ表示エリアの追加 --%>
     <c:if test="${not empty message}">
         <p style="color: blue;">${message}</p>
     </c:if>
     
-    <ul>
-  ・登録
-   <form action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post" enctype="multipart/form-data">
-  <div class="form-row">
-    <div class="upload-container">
-      <p>プレビュー画面</p>
-      <img id="preview-image" src="${pageContext.request.contextPath}/img/placeholder.png" alt="プレビュー" />
-      <input type="file" id="image-input" name="imageFile" accept="image/*" required/>
-    </div>
+    
+    <%-- 登録ブロックの開始 --%>
+    <h2>メニュー登録</h2>
+    <form class="product-insert-section" action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <%-- プレビュー画面ブロック (左側) --%>
+            <div class="upload-container">
+                <p>プレビュー画面</p>
+                <img id="preview-image" src="${pageContext.request.contextPath}/img/placeholder.png" alt="プレビュー" />
+                <input type="file" id="image-input" name="imageFile" accept="image/*" required/>
+            </div>
 
-    <div class="form-fields">
-      <label>名前<input type="text" name="itemName" required/></label>
-      <label>金額<input type="text" name="itemPrice" required/></label>
-      <label>Kcal<input type="text" name="itemCal" required/></label>
-      <button class="action" type="submit" name="actionType" value="insertProduct">登録する</button>
-    </div>
-  </div>
-  </form>
+            <%-- 入力フィールドブロック (右側) --%>
+            <div class="form-fields">
+                <label>名前<input type="text" name="itemName" required/></label>
+                <label>金額<input type="text" name="itemPrice" required/></label>
+                <label>Kcal<input type="text" name="itemCal" required/></label>
+                <button class="action" type="submit" name="actionType" value="insertProduct">登録する</button>
+            </div>
+        </div>
+    </form>
+    <%-- 登録ブロックの終了 --%>
+    
 
-        ・登録済み
-        <form action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post">
+    <%-- 登録済みリストブロックの開始 --%>
+    <h2>登録済みメニュー</h2>
+    <form action="${pageContext.request.contextPath}/ProductsManagementServlet" method="post">
         <table>
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>名前</th>
               <th>金額</th>
-              <th>kcal</th>
+              <th>Kcal</th>
               <th>注文リストへ表示</th>
               <th>登録済みリストから削除</th>
             </tr>
@@ -73,12 +81,12 @@
             </tbody>
         </table>
         <div class="actions">
-        <button class="action" type="submit" name="actionType" value="updateDisplay">表示</button>
-        <button class="action" type="submit" name="actionType" value="updateDelete">削除</button>
+            <button class="action" type="submit" name="actionType" value="updateDisplay">表示登録更新</button>
+            <button class="action" type="submit" name="actionType" value="updateDelete" onclick="return confirm('本当に削除しますか？');">メニュー削除</button>
         </div>
-        </form>
-      </li>
-    </ul>
+    </form>
+    <%-- 登録済みリストブロックの終了 --%>
+    
   </main>
  <%@ include file="/common/footer.jsp" %>
 </body>

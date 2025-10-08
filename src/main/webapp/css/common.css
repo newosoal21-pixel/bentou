@@ -16,9 +16,14 @@ body {
 main {
     flex: 1;
     padding: 40px 10%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    /* display: flex;  <- 削除/コメントアウト */
+    /* flex-direction: column; <- 削除/コメントアウト */
+    /* gap: 30px; <- 削除/コメントアウト（必要なら各セクションでmarginを設定） */
+}
+
+/* 各セクションの下に余白が必要な場合、h2にマージンを追加するなどして対応します */
+h2 {
+    margin-top: 30px; /* 必要に応じて追加 */
 }
 
 /* === 見出し === */
@@ -199,12 +204,12 @@ button.copyBtn:hover {
 }
 
 
-/*===メニューの画像登録===*/
-
-
+/* ===メニューの画像登録===*/
 .upload-container {
-  width: 150px;
-  height: 200px;
+  /* 幅と高さをautoにしてコンテンツサイズに合わせる、またはmin-heightを設定 */
+  /* 今回は、左右のflexコンテナとして適切に見えるよう調整します */
+  width: 200px; /* コンテナ幅を少し大きくする */
+  min-height: 250px; /* コンテナの最小高さを確保する */
   border: 1px solid #000;
   padding: 10px;
   font-size: 14px;
@@ -212,12 +217,49 @@ button.copyBtn:hover {
 }
 
 .upload-container img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+  /* 画像のサイズ制限を解除し、親要素の幅いっぱい・高さ可変にします */
+  width: 100%;       /* ★親要素(.upload-container)のパディング内幅いっぱい */
+  height: auto;      /* ★高さを自動調整 */
+  max-height: 200px; /* 画像がコンテナを過度に引き伸ばさないように最大高さを制限 */
+  object-fit: contain; /* アスペクト比を維持しつつ、コンテナに収める */
   margin-bottom: 10px;
+  /* 以前の display: block; は、`.form-row`のスタイルで上書きされているため、このままでOK */
 }
 
 .upload-container input[type="file"] {
   font-size: 12px;
+}
+
+/* 登録フォーム内の左右カラムをレイアウトするためのスタイル */
+.product-insert-section .form-row {
+    display: flex;
+    gap: 20px; /* 要素間のスペース */
+    align-items: flex-start; /* 縦方向の配置を上端に揃える */
+    margin-bottom: 30px; /* 登録ブロックの下にスペース */
+    border: 1px solid #ccc; 
+    padding: 15px;
+}
+
+/* 左右のブロックを均等に分割 */
+.product-insert-section .upload-container, 
+.product-insert-section .form-fields {
+    /* ここは以前と同じスタイルを適用し直す */
+    flex: 1; 
+    min-width: 450px; 
+}
+
+/* 必要であれば、元の.form-rowの定義は削除または上記のセレクタに置き換えます */
+
+/* 画像スタイル */
+.upload-container img {
+    display: block;
+    max-width: 100%; /* 画像がコンテナをはみ出さないように */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* 入力フィールドのラベルスタイル */
+.form-fields label {
+    display: block; /* labelを縦に並べる */
+    margin-bottom: 10px;
 }

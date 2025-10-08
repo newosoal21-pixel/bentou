@@ -17,7 +17,8 @@
 		<form action="${pageContext.request.contextPath}/UserEditServlet" method="post">
 			<div class="form-group">
 				<label>部署</label> 
-				<select name="departmentId" required> <option value="">選択してください</option>
+				<select name="departmentId" required> 
+				    <option value="">選択してください</option>
     				<option value="1">総務部</option>
     				<option value="2">営業部</option>
     				<option value="3">商品開発部</option>

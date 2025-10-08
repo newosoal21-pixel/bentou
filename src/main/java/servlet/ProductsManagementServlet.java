@@ -80,51 +80,67 @@ public class ProductsManagementServlet extends HttpServlet {
 		// 新規商品登録処理
 		// -----------------------------------------------------------------
 		if ("insertProduct".equals(actionType)) {
-			
-			
-			String itemName = request.getParameter("itemName");
-			String itemPriceStr = request.getParameter("itemPrice");
-			String itemCalStr = request.getParameter("itemCal");
-			Part filePart = request.getPart("imageFile"); // アップロードされたファイルを取得
-			
-			// 入力値のチェックと変換
-			int itemPrice, itemCal;
-			try {
-				itemPrice = Integer.parseInt(itemPriceStr);
-				itemCal = Integer.parseInt(itemCalStr);
-			} catch (NumberFormatException e) {
-				request.setAttribute("message", "金額またはKcalの値が不正です。");
-				doGet(request, response);
-				return;
-			}
-			
-			// ファイル名生成と保存処理
-			String submittedFileName = filePart.getSubmittedFileName();
-			String imageFileName = null;
-			if (submittedFileName != null && !submittedFileName.isEmpty()) {
-			    // ファイル名が重複しないようUUIDを使用し、拡張子を保持
-			    String extension = submittedFileName.substring(submittedFileName.lastIndexOf("."));
-			    imageFileName = UUID.randomUUID().toString() + extension;
-			    
-			    // サーバーの保存先パス（/img/products/）。実際の環境に合わせてパスを修正してください
-			    String savePath = getServletContext().getRealPath("/images"); 
-			    File saveDir = new File(savePath);
-			    if (!saveDir.exists()) {
-			        saveDir.mkdirs();
-			    }
-			    filePart.write(savePath + imageFileName);
-			}
-			
-			// Productオブジェクトを作成
-			Product newProduct = new Product(
-			        0, // IDはAuto Incrementのため0
-			        itemName, 
-			        itemPrice, 
-			        itemCal, 
-			        imageFileName != null ? "images/" + imageFileName : null // DBに保存するパス
-			);
-			
-			// Logicを呼び出し登録
+		    
+		    
+		    String itemName = request.getParameter("itemName");
+		    String itemPriceStr = request.getParameter("itemPrice");
+		    String itemCalStr = request.getParameter("itemCal");
+		    Part filePart = request.getPart("imageFile"); // アップロードされたファイルを取得
+		    
+		    // 入力値のチェックと変換
+		    int itemPrice, itemCal;
+		    try {
+		        itemPrice = Integer.parseInt(itemPriceStr);
+		        itemCal = Integer.parseInt(itemCalStr);
+		    } catch (NumberFormatException e) {
+		        request.setAttribute("message", "金額またはKcalの値が不正です。");
+		        doGet(request, response);
+		        return;
+		    }
+		    
+		    // ファイル名生成と保存処理
+		    String submittedFileName = filePart.getSubmittedFileName();
+		    String imageWebPath = null; // DBに保存する、ブラウザからアクセス可能なWebパス
+		    
+		    if (submittedFileName != null && !submittedFileName.isEmpty()) {
+		        
+		        // 1. 一意なファイル名の生成
+		        String extension = "";
+		        int dotIndex = submittedFileName.lastIndexOf(".");
+		        if (dotIndex > 0) {
+		             extension = submittedFileName.substring(dotIndex);
+		        }
+		        String uniqueFileName = UUID.randomUUID().toString() + extension;
+		        
+		        // 2. サーバーの保存先パス（/images）の取得とフォルダ作成
+		        // Webアプリケーションのデプロイ先のフルパスを取得
+		        String savePath = getServletContext().getRealPath("/images"); 
+		        File saveDir = new File(savePath);
+		        
+		        if (!saveDir.exists()) {
+		            saveDir.mkdirs();
+		        }
+		        
+		        // 3. ファイルを保存するフルパスを構築
+		        String filePath = savePath + File.separator + uniqueFileName;
+		        
+		        // 4. ファイルを物理的に保存
+		        filePart.write(filePath); // ★修正点：ファイル名を含むフルパスを渡す
+		        
+		        // 5. DBに保存するWebパス（ブラウザからのアクセス用）を構築
+		        imageWebPath = "images/" + uniqueFileName; // ★修正点：Webパスとして使う
+		    }
+		    
+		    // Productオブジェクトを作成
+		    Product newProduct = new Product(
+		            0, // IDはAuto Incrementのため0
+		            itemName, 
+		            itemPrice, 
+		            itemCal, 
+		            imageWebPath // ★修正点：修正したWebパスをセット
+		    );
+		    
+		    // Logicを呼び出し登録
 			ProductLogic logic = new ProductLogic();
 			if (logic.registerProduct(newProduct)) {
 				request.setAttribute("message", itemName + "をメニューに登録しました。");
@@ -150,9 +166,9 @@ public class ProductsManagementServlet extends HttpServlet {
             String updatedFlagName = "";
 
             if ("updateDisplay".equals(actionType)) {
-                updatedFlagName = "表示フラグ";
+                updatedFlagName = "表示登録";
             } else {
-                updatedFlagName = "削除フラグ";
+                updatedFlagName = "削除";
             }
             
             for (Product product : currentProductList) {
@@ -192,7 +208,7 @@ public class ProductsManagementServlet extends HttpServlet {
             
             // メッセージの分岐と格納
             if (updateCount > 0) {
-                request.setAttribute("message", updateCount + "件の" + updatedFlagName + "を更新しました。");
+                request.setAttribute("message", updateCount + "件の商品を" + updatedFlagName + "しました。");
             } else {
                 request.setAttribute("message", "更新された商品はありませんでした。");
             }
