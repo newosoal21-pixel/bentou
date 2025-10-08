@@ -5,6 +5,18 @@
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ---
 
+## 📚 目次
+
+- [💡 プロジェクトについて](#-プロジェクトについて)
+- [💻 使用技術](#-使用技術)
+- [📜 ER図](#-er図)
+- [🛠️ セットアップ](#-セットアップ)
+- [🚀 使用方法](#-使用方法)
+- [📜 ライセンス](#-ライセンス)
+- [📧 連絡先](#-連絡先)
+
+---
+
 ## 💡 プロジェクトについて
 
 ### 概要
@@ -18,19 +30,27 @@
     * 社員（一般ユーザー）と管理者を登録・管理し、ログインして弁当を注文できます。
     * 注文金額は月末に給料から自動天引きされます。
     * 管理者は全社員の注文内容を確認し、発注用メール（自動でひな形作成）を送信できます。
-   ![ユーザー管理画面のキャプチャ](screenshot/adminlist.png)
+    
+    ![ユーザー管理画面のキャプチャ](screenshot/adminlist.png)
+
 2.  **注文入力機能**
     * 社員は弁当の種類と数量を選んで注文でき、複数個の注文も可能です。
     * 注文には締め切り日時が設定され、期限までは内容の変更やキャンセルが可能です。
-      ![注文入力画面のキャプチャ](screenshot/chumon1.png)
+    
+    ![注文入力画面のキャプチャ](screenshot/chumon1.png)
+
 3.  **注文一覧・集計機能**
     * 全社員の注文情報を一覧表示し、弁当の種類ごとに自動で数量を集計できます。
     * 締め切り後は注文の修正を制限し、確定された情報で発注できます。
-      ![注文集計画面のキャプチャ](screenshot/orderby.png)
+    
+    ![注文集計画面のキャプチャ](screenshot/orderby.png)
+
 4.  **発注書作成・出力機能**
     * 集計結果をもとに発注書を自動作成し、画面表示または**CSV・PDF形式で出力**可能です。メールでの送信にも対応予定です。
-      ![発注書出力画面のキャプチャ](screenshot/order2.png)
-      ![発注書出力画面のキャプチャ](screenshot/orderends.png)
+    
+    ![発注書画面のキャプチャ](screenshot/order2.png)
+    
+    ![最終確認画面のキャプチャ](screenshot/orderends.png)
 
 ---
 
@@ -49,8 +69,12 @@
 
 ---
 
-## 📜 ER図 
-      ![発注書出力画面のキャプチャ](screenshot/gohanER.png)
+## 📜 ER図
+
+プロジェクトのデータベース構造を示すER図です。
+
+![ごはん係DXのER図](screenshot/gohanER.png)
+
 ---
 
 ## 🛠️ セットアップ
@@ -85,7 +109,7 @@
 ## 🚀 使用方法
 
 サーバー起動後、以下のURLにアクセスしてください。
-`http://localhost:8080/bentou/WelcomeServlet
+`http://localhost:8080/bentou/login` 
 
 ### 初期ログイン情報 (例)
 | ユーザー種別 | ユーザーID | パスワード |
@@ -94,15 +118,15 @@
 
 ---
 
-
 ## 📜 ライセンス
 
 このプロジェクトは **[ライセンス名]** の下で公開されています。詳細については `LICENSE` ファイルを参照してください。
+
 ---
 
 ## 📧 連絡先
 
 プロジェクトに関する質問やフィードバックは、以下にご連絡ください。
 
-* **ユーザー名**: [@GitHubユーザー名](https://github.com/newosoal21-pixel
+* **GitHub**: [@newosoal21-pixel](https://github.com/newosoal21-pixel)
 * **Email**: [newosoal21@gmail.com](mailto:newosoal21@gmail.com)
