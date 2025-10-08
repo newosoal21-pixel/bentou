@@ -73,6 +73,7 @@
     * **必要なテーブル作成SQLは、以下のファイルを参照して実行してください。**
         * `bento-src-main-webapp-WEB-INF-DB` フォルダ内にある **`ごはん係DXデータベース初期作SQL文.txt`**
     * 初期データを投入します。
+      ![ER図のキャプチャ](screenshot/gohanER.png)
 3.  **サーバーへのデプロイ・起動**
     * `bento-src-main-java-servlet` フォルダ内の **`WelcomeServlet.java`** を右クリックし、「**実行**」→「**サーバーから実行**」を選択してアプリケーションを起動します。
 
