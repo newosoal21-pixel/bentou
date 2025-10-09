@@ -66,8 +66,10 @@
 	 
     <div class="actions">
       <button type="button" onclick="window.print()">印刷</button>
-        <form method="" action="" style="display: inline;">
-            <button type="submit">CSV DL</button>
+        <form method="post" action="${pageContext.request.contextPath}/AdminOrderServlet" style="display: inline;">
+          <input type="hidden" name="action" value="csv">
+          <button type="submit">CSV DL</button>
+      </form>
     </div>
   </main>
  <%@ include file="/common/footer.jsp" %>

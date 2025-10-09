@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -73,44 +74,156 @@ public class AdminOrderServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// DB更新処理
-		AdPreorderLogic logic = new AdPreorderLogic();
+	    request.setCharacterEncoding("UTF-8");
+	    String action = request.getParameter("action");
+	    HttpSession session = request.getSession(); // セッションを取得
 
-	    // 発注状態をDBで更新（orders.order_flag = 1）
+	    if ("csv".equals(action)) {
+	        // ★CSV出力処理
+	        try {
+	            handleCsvExport(request, response, session);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "CSV出力中にエラーが発生しました。");
+	        }
+	        return; // CSV出力後はフォワードせずに終了
+	    }
+
+	    // --- 既存の発注処理（DB更新、画面表示のためのデータ取得）---
+	    AdPreorderLogic logic = new AdPreorderLogic();
+
+	    // 既存の発注ロジック
 	    int updatedCount = logic.markTodayOrdersAsOrdered();
-
-	    // 更新後の最新リストを取得して表示
 	    List<AdminOrder> orderList = logic.execute();
-
-	    
 	    Map<String, List<AdminOrder>> map = logic.getDepartmentOrders();
-	    
-	 // 変更後: リストが空であれば、その日の発注処理は完了していると見なす
-	    boolean orderCompleted = orderList.isEmpty(); // リストが空（未発注の注文がない）なら true
+	    boolean orderCompleted = orderList.isEmpty();
 
-	    System.out.println("orderCompleted: " + orderCompleted); // 出力も変更
-	    request.setAttribute("orderCompleted", orderCompleted);
-
-	    request.setAttribute("orderList", orderList);
-	 // request.setAttribute("orderCompleted", orderCompleted);
-	    request.setAttribute("updatedCount", updatedCount);
-	    request.setAttribute("map", map);
-	    
+	    // 合計金額計算
 	    Map<String, Integer> totalPriceMap = new HashMap<>();
+	    int totalAmount = 0; // 総合合計金額も計算し直す
+	    int totalQuantity = 0; // 総合合計個数も計算し直す
+
 	    for (Map.Entry<String, List<AdminOrder>> entry : map.entrySet()) {
 	        int sum = 0;
 	        for (AdminOrder order : entry.getValue()) {
 	            sum += order.getTotalPrice();
+	            totalAmount += order.getTotalPrice();
+	            totalQuantity += order.getTotalQuantity();
 	        }
 	        totalPriceMap.put(entry.getKey(), sum);
 	    }
+	    
+	 // ★★★ 修正: mapから総合集計リスト (orderList) を再構築する ★★★
+	 // orderList をクリアし、mapの全データを合算した新しい総合集計を作成
+	 List<AdminOrder> updatedOrderList = new AdPreorderLogic().getOrdersFromMap(map);
+	    
+	    Date orderDate = new Date(System.currentTimeMillis()); // 日付を再取得
 
+	    // ★★★ 画面表示データとCSV出力を兼ねて、セッションにも保存する ★★★
+	    session.setAttribute("orderList", orderList);
+	    session.setAttribute("totalAmount", totalAmount);
+	    session.setAttribute("orderDate", orderDate);
+	    session.setAttribute("totalQuantity", totalQuantity);
+	    session.setAttribute("map", map); // 部署別リスト
+	    session.setAttribute("totalPriceMap", totalPriceMap); // 部署別合計金額
+
+	 // デバッグ用出力
+	    System.out.println("--- DB更新後のセッションデータ確認 ---");
+	    System.out.println("orderList size: " + (updatedOrderList != null ? updatedOrderList.size() : "null")); 
+	    System.out.println("map size: " + (map != null ? map.size() : "null"));
+	    System.out.println("------------------------------------");
+	    
+	    // リクエスト属性はフォワード先でのみ使用
+	    request.setAttribute("orderList", orderList);
+	    request.setAttribute("totalAmount", totalAmount);
+	    request.setAttribute("orderDate", orderDate);
+	    request.setAttribute("totalQuantity", totalQuantity);
+	    request.setAttribute("orderCompleted", orderCompleted);
+	    request.setAttribute("updatedCount", updatedCount);
+	    request.setAttribute("map", map);
 	    request.setAttribute("totalPriceMap", totalPriceMap);
 
-	 
-	    
-	    
 	    request.getRequestDispatcher("/WEB-INF/jsp/admin/adordercomp.jsp")
 	           .forward(request, response);
+	}
+
+	// ★★★ CSV出力のヘルパーメソッドを追加 ★★★
+	private void handleCsvExport(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	        throws IOException {
+	    
+	    // セッションから表示データを取得
+	    // ★★★ 型の安全性を確保するため、キャストエラー時に備えてnullで初期化 ★★★
+	    List<AdminOrder> orderList = null;
+	    Map<String, List<AdminOrder>> map = null;
+	    String orderDateStr = null;
+	    Integer totalAmount = null;
+	    Integer totalQuantity = null;
+	    Map<String, Integer> totalPriceMap = null;
+	    
+	    try {
+	        orderList = (List<AdminOrder>) session.getAttribute("orderList");
+	        map = (Map<String, List<AdminOrder>>) session.getAttribute("map");
+	        orderDateStr = session.getAttribute("orderDate").toString();
+	        totalAmount = (Integer) session.getAttribute("totalAmount");
+	        totalQuantity = (Integer) session.getAttribute("totalQuantity");
+	        totalPriceMap = (Map<String, Integer>) session.getAttribute("totalPriceMap");
+	    } catch (Exception e) {
+	        System.err.println("CSV出力時: セッションからのデータ取得でエラーが発生しました。");
+	        e.printStackTrace();
+	    }
+	    
+	    // ★★★ デバッグ出力の追加 (CSV出力リクエスト時) ★★★
+	    System.out.println("--- CSV出力時のセッションデータ確認 ---");
+	    System.out.println("orderList size (CSV): " + (orderList != null ? orderList.size() : "null"));
+	    System.out.println("map size (CSV): " + (map != null ? map.size() : "null"));
+	    System.out.println("------------------------------------");
+
+	    // ★★★ データチェックロジックの修正: mapが有効で空でなければOKとする ★★★
+	    // 部署別集計 (map) にデータがあれば、それは発注データがあると判断できる
+	    if (map == null || map.isEmpty()) { 
+	        response.setContentType("text/plain; charset=UTF-8");
+	        response.getWriter().write("出力対象の注文データがありません。");
+	        return;
+	    }
+
+	    // --- HTTPヘッダー設定 ---
+	    response.setContentType("text/csv; charset=Shift_JIS"); 
+	    String fileName = "order_completion_" + orderDateStr.replace("-", "") + ".csv";
+	    response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+	    // --- CSVデータの書き出し ---
+	    try (PrintWriter pw = response.getWriter()) {
+	        
+	        // 1. 総合集計
+	        pw.println("--- 総合集計 ---");
+	        pw.println("日付," + orderDateStr);
+	        pw.println("総合合計金額," + totalAmount);
+	        pw.println("総合合計個数," + totalQuantity);
+	        pw.println("名前,個数,金額(円)");
+	        for (AdminOrder order : orderList) {
+	            pw.printf("\"%s\",%d,%d%n", order.getItemName(), order.getTotalQuantity(), order.getTotalPrice());
+	        }
+	        pw.println(); 
+	        
+	        // 2. 部署別集計
+	        pw.println("--- 部署別集計 ---");
+	        
+	        for (Map.Entry<String, List<AdminOrder>> entry : map.entrySet()) {
+	            String departmentName = entry.getKey();
+	            List<AdminOrder> deptOrders = entry.getValue();
+	            
+	            pw.println("部署名," + departmentName);
+	            pw.println("日付," + orderDateStr);
+	            pw.println("部署別合計金額," + totalPriceMap.get(departmentName));
+	            pw.println("名前,個数,金額(円)");
+
+	            for (AdminOrder order : deptOrders) {
+	                 pw.printf("\"%s\",%d,%d%n", order.getItemName(), order.getTotalQuantity(), order.getTotalPrice());
+	            }
+	            pw.println(); // 部署ごとに空行
+	        }
+	        
+	        pw.flush();
+	    }
 	}
 }
