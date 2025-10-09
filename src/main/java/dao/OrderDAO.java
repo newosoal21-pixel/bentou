@@ -39,7 +39,7 @@ public class OrderDAO {
                    + "INNER JOIN products AS p ON o.products_id = p.products_id "
                    + "INNER JOIN employees AS e ON o.employees_id = e.employees_id "
                    + "INNER JOIN department AS d ON e.department_id = d.department_id "
-                   + "WHERE DATE(o.orderdate) = CURDATE() "
+                   + "WHERE DATE(o.orderdate) = CURDATE() AND o.order_flag = 0 " //  追加
                    + "ORDER BY o.orders_id DESC";
         System.out.println(sql);
         

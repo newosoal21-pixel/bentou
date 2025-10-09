@@ -85,11 +85,14 @@ public class AdminOrderServlet extends HttpServlet {
 	    
 	    Map<String, List<AdminOrder>> map = logic.getDepartmentOrders();
 	    
-	    boolean orderCompleted = orderList != null && orderList.stream()
-	        .allMatch(o -> o.getOrderFlag() == 1);
+	 // 変更後: リストが空であれば、その日の発注処理は完了していると見なす
+	    boolean orderCompleted = orderList.isEmpty(); // リストが空（未発注の注文がない）なら true
+
+	    System.out.println("orderCompleted: " + orderCompleted); // 出力も変更
+	    request.setAttribute("orderCompleted", orderCompleted);
 
 	    request.setAttribute("orderList", orderList);
-	    request.setAttribute("orderCompleted", orderCompleted);
+	 // request.setAttribute("orderCompleted", orderCompleted);
 	    request.setAttribute("updatedCount", updatedCount);
 	    request.setAttribute("map", map);
 	    
