@@ -85,12 +85,12 @@ INSERT INTO `EMPLOYEES` (`employees_id`, `password`, `user_name`, `is_admin`, `d
 
 -- PRODUCTS
 INSERT INTO PRODUCTS (products_id, price, itemname, cal, display_flag, delete_flag, image, image_rename)
-VALUES (1, 450, 'のり弁当', 500, 0, 0, 'images/bentou1.jpg', 'images/bentou1.jpg'),
-(2, 500, '唐揚げ弁当', 550, 0, 0, 'images/bentou2.jpg', 'images/bentou2.jpg'),
-(3, 500, '幕の内弁当', 500, 0, 0, 'images/bentou3.jpg', 'images/bentou3.jpg'),
-(4, 550, '牛タン弁当', 500, 0, 0, 'images/bentou4.jpg', 'images/bentou4.jpg'),
-(5, 300, 'フライドポテト', 450, 0, 0, 'images/potato.jpg', 'images/potato.jpg'),
-(6, 100, '飲み物', 0, 0, 0, 'images/drink.jpg', 'images/drink.jpg');
+VALUES (1, 450, 'のり弁当', 500, 1, 0, 'images/bentou1.jpg', 'images/bentou1.jpg'),
+(2, 500, '唐揚げ弁当', 550, 1, 0, 'images/bentou2.jpg', 'images/bentou2.jpg'),
+(3, 500, '幕の内弁当', 500, 1, 0, 'images/bentou3.jpg', 'images/bentou3.jpg'),
+(4, 550, '牛タン弁当', 500, 1, 0, 'images/bentou4.jpg', 'images/bentou4.jpg'),
+(5, 300, 'フライドポテト', 450, 1, 0, 'images/potato.jpg', 'images/potato.jpg'),
+(6, 100, '飲み物', 0, 1, 0, 'images/drink.jpg', 'images/drink.jpg');
 
 -- LOGIN_HISTORY
 INSERT INTO `LOGIN_HISTORY` (`login_history_id`, `login_time`, `employees_id`) VALUES (1, '2025-09-11 11:00:00', 1001);
