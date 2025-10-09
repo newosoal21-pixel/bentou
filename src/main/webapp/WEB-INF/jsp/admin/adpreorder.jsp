@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> ← 不要なので削除 --%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -45,7 +45,7 @@
 株式会社はっとりの服部です。
 下記の通り、お弁当の発注をさせていただきます。
 ご確認のほど、よろしくお願いいたします。
-■ 発注日：<fmt:formatDate value="${orderDate}" pattern="M月d日" />
+■ 発注日：${orderDate}  <%-- fmtタグの代わりにELをそのまま使用 --%>
 ■ 配達時間：12時頃
 ■ 注文内容：
 <c:forEach var="item" items="${orderList}">
@@ -61,21 +61,16 @@
 電話：000-0000-0000
 </pre>
 <form action="${pageContext.request.contextPath}/AdminOrderServlet" method="post">
-    <button type="submit" class="button" <c:if test="${orderCompleted}">disabled="disabled"</c:if>>
+    <button type="submit" class=".button" <c:if test="${orderCompleted}">disabled="disabled"</c:if>>
         <c:choose>
             <c:when test="${orderCompleted}">本日は発注済み</c:when>
             <c:otherwise>発注する</c:otherwise>
         </c:choose>
     </button>
-</form>
-</form>
-    </button>
-</form>
-</form>
-</form>
+</form>  <%-- ここで正しく閉じます --%>
 		</section>
 	</main>
-  <%@ include file="/common/footer.jsp" %>
+<%@ include file="/common/footer.jsp" %>
 
 	<script>
   function copyText() {

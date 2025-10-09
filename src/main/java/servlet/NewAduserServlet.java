@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import logic.DepartmentRegistLogic;
 import logic.UserRegistLogic;
+import model.DepartmentRegist;
 import model.EmployeeEntry;
 
 /**
@@ -19,6 +21,22 @@ import model.EmployeeEntry;
 @WebServlet("/NewAduserServlet")
 public class NewAduserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	// ★★★ GETメソッドを追加 ★★★
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // 1. 部署リストのロジックを呼び出し、リストを取得
+        DepartmentRegistLogic dl = new DepartmentRegistLogic();
+        List<DepartmentRegist> departmentList = dl.getAllDepartments();
+
+        // 2. リクエストスコープに部署リストを保存
+        request.setAttribute("departmentList", departmentList);
+
+        // 3. JSPへフォワードして表示 
+        request.getRequestDispatcher("/WEB-INF/jsp/newuser.jsp").forward(request, response);
+    }
+    // ★★★ GETメソッド終わり ★★★
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -68,6 +86,13 @@ public class NewAduserServlet extends HttpServlet {
 			String errorMsg = registerLogic.validate(employeeEntry, passwordCheck);
 			System.out.println(1);
 			if (errorMsg != null) {
+				
+				// ★★★ エラー時に部署リストを再取得 ★★★
+                DepartmentRegistLogic dl = new DepartmentRegistLogic();
+                List<DepartmentRegist> departmentList = dl.getAllDepartments();
+                request.setAttribute("departmentList", departmentList);
+                // ★★★ 修正終わり ★★★
+				
 				// エラーがある場合、エラーメッセージをJSPに渡してフォワード
 				request.setAttribute("errorMsg", errorMsg);
 			} else {

@@ -14,18 +14,15 @@
   <!-- メイン -->
   <div class="container">
     <form action="NewAduserServlet" method="post">
-      <!-- 部署 -->
       <div class="form-group label">
       <label>部署</label>
       <select name="departmentId" required>
         <option value="">選択してください</option> 
-        <option value="1">総務部</option>
-        <option value="2">営業部</option>
-        <option value="3">商品開発部</option>
-        <option value="4">研究開発部</option>
-        <option value="5">技術部</option>
-        <option value="6">情報システム部</option>
-      </select>
+        
+        <c:forEach var="dept" items="${departmentList}">
+            <option value="${dept.departmentId}">${dept.departmentName}</option>
+        </c:forEach>
+        </select>
       </div>
 
       <!-- 社員ID -->

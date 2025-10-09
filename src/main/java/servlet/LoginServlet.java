@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 			 
 		 }else if("new".equals(next)) {
 				RequestDispatcher dispatcher =
-		                request.getRequestDispatcher("/WEB-INF/jsp/newuser.jsp");
+		                request.getRequestDispatcher("/NewAduserServlet");
 		               dispatcher.forward(request, response);
 			 
 		 }else if("adminlogin".equals(next)) {

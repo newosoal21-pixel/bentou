@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,7 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import logic.DepartmentRegistLogic;
 import logic.UserEditLogic;
+import model.DepartmentRegist;
 import model.EmployeeBean;
 
 @WebServlet("/UserEditServlet")
@@ -18,10 +21,18 @@ public class UserEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	// ★★★ GETメソッドを追加 ★★★
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-       
+        // 1. 部署リストのロジックを呼び出し、リストを取得
+        DepartmentRegistLogic dl = new DepartmentRegistLogic();
+        List<DepartmentRegist> departmentList = dl.getAllDepartments();
+
+        // 2. リクエストスコープに部署リストを保存
+        request.setAttribute("departmentList", departmentList);
+
+        // 3. JSPへフォワードして表示 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/useredit.jsp");
 		dispatcher.forward(request, response);
     }

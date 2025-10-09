@@ -143,6 +143,21 @@ button:hover {
     color: white;
 }
 
+/* === 発注ボタン (.button) のコンパクト化のため追加/修正 === */
+.button {
+    /* サイズをコンパクトにするための調整 */
+    padding: 6px 15px; /* 縦の余白を減らし、横の余白を適切に設定 */
+    font-size: 14px;  /* フォントサイズを統一 */
+    
+    /* submit-buttonと競合しないよう、スタイルを明示 */
+    border: 2px solid black;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 0; /* form内に配置するため、左のmarginをリセット */
+    box-sizing: border-box; /* paddingとborderをwidthに含める */
+}
+
 /* === 送信ボタン === */
 .submit-button {
     margin-top: 14px;
@@ -184,7 +199,7 @@ button:hover {
 /* === コピー用ボタン === */
 button.copyBtn {
     float: right;
-    margin-top: -25px;
+    margin-top:  20px;
     padding: 5px 10px;
     border: 1px solid #aaa;
     background: #eee;
