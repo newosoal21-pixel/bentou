@@ -35,7 +35,7 @@ CREATE TABLE `products` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image_rename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`products_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- LOGIN_HISTORY テーブル
 CREATE TABLE `login_history` (
@@ -45,7 +45,7 @@ CREATE TABLE `login_history` (
   PRIMARY KEY (`login_history_id`),
   KEY `employees_id` (`employees_id`),
   CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`employees_id`) REFERENCES `employees` (`employees_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ORDERS テーブル
 CREATE TABLE `orders` (
@@ -103,3 +103,4 @@ INSERT INTO `ORDER_DEADLINE` (`deadline_time`) VALUES ('18:30:00');
 
 
 ALTER TABLE orders MODIFY orders_id INT AUTO_INCREMENT;
+
