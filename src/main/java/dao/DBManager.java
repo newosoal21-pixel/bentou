@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * アプリケーション全体で共通して使用するために、接続処理をメソッドにまとめています。
  * </p>
  * 
- * 使用例:
+ * 使用例:完
  * <pre>
  * try (Connection conn = DBManager.getConnection()) {
  *     // データベース処理を実行
