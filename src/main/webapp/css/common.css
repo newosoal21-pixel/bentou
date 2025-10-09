@@ -16,9 +16,9 @@ body {
 main {
     flex: 1;
     padding: 40px 10%;
-    /* display: flex;  <- 削除/コメントアウト */
-    /* flex-direction: column; <- 削除/コメントアウト */
-    /* gap: 30px; <- 削除/コメントアウト（必要なら各セクションでmarginを設定） */
+    display: flex;  /*<- 削除/コメントアウト */
+    flex-direction: column; /*<- 削除/コメントアウト */
+    gap: 30px; /*<- 削除/コメントアウト（必要なら各セクションでmarginを設定） */
 }
 
 /* 各セクションの下に余白が必要な場合、h2にマージンを追加するなどして対応します */

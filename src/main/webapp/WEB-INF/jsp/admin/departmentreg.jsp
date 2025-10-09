@@ -48,10 +48,10 @@
     
     <section class="addSection">
       <h2>部署名新規作成</h2>
-      <form action="DepartmentManagementServlet" method="post">
+      <form action="DepartmentManagementServlet" method="post" onsubmit="return confirm('新しい部署名を登録します。よろしいですか？');">
           <label for="deptName">部署名</label>
           <input type="text" id="deptName" name="deptName" placeholder="例：営業部" required/>
-          <button class="action" type="submit" name="actionType" value="insert">登録</button>
+          <button class="action" type="submit" name="actionType" value="insert" >登録</button>
       </form>
     </section>
     
@@ -60,7 +60,7 @@
         <input type="hidden" name="actionType" value="update" />
         <label>ID: <input type="text" name="deptId" id="update-deptId" readonly /></label><br>
         <label>新部署名: <input type="text" name="updatedDeptName" id="update-deptName" required /></label>
-        <button type="submit" class="action">確定</button>
+        <button type="submit" class="action" onclick="return confirm('部署名を変更します。よろしいですか？')">確定</button>
         <button type="button" onclick="document.getElementById('update-form').style.display='none'">キャンセル</button>
     </form>
     
