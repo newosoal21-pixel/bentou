@@ -73,7 +73,17 @@
 
          <div class="actions">
             <button type="button" onclick="window.print()">印刷</button>
-            <button type="submit" formaction="downloadCsv.jsp">CSV DL</button>
+             <form method="post" action="${pageContext.request.contextPath}/AdorderHistoryServlet" style="display: inline;">
+            <%-- 処理を分岐させるための隠しパラメータ --%>
+            <input type="hidden" name="action" value="csv">
+            
+            <%-- 現在の検索条件を hidden で送信 --%>
+            <input type="hidden" name="year" value="${param.year}">
+            <input type="hidden" name="month" value="${param.month}">
+            <input type="hidden" name="day" value="${param.day}">
+            
+            <button type="submit">CSV DL</button>
+        </form>
         </div>
     </main>
   <%@ include file="/common/footer.jsp" %>

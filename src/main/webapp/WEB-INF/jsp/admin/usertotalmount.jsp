@@ -60,5 +60,14 @@
 
     <div class="actions">
         <button type="button" onclick="window.print()">印刷</button>
-        <form method="" action="" style="display: inline;">
+        <form method="post" action="${pageContext.request.contextPath}/UserTotalBuyServlet" style="display: inline;">
+            <%-- ★★★ 処理を分岐させるための隠しパラメータを追加 ★★★ --%>
+            <input type="hidden" name="action" value="csv">
+            
+            <%-- 選択されている年と月の値を hidden で送信 --%>
+            <input type="hidden" name="year" value="${selectedYear}">
+            <input type="hidden" name="month" value="${selectedMonth}">
             <button type="submit">CSV DL</button>
+        </form>   
+    </div>
+</main>
