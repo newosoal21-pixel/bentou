@@ -99,6 +99,7 @@ INSERT INTO `LOGIN_HISTORY` (`login_history_id`, `login_time`, `employees_id`) V
 INSERT INTO `ORDERS` (`orders_id`, `employees_id`, `quantity`, `orderdate`, `products_id`, `order_flag`) VALUES (1, 1001, 1, '2025-09-11 11:00:00', 1, 0);
 
 -- ORDER_DEADLINE
-INSERT INTO `ORDER_DEADLINE` (`deadline_time`) VALUES ('10:30:00');
+INSERT INTO `ORDER_DEADLINE` (`deadline_time`) VALUES ('18:30:00');
+
 
 ALTER TABLE orders MODIFY orders_id INT AUTO_INCREMENT;
