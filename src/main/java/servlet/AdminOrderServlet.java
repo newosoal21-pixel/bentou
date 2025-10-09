@@ -113,28 +113,23 @@ public class AdminOrderServlet extends HttpServlet {
 	        totalPriceMap.put(entry.getKey(), sum);
 	    }
 	    
-	 // ★★★ 修正: mapから総合集計リスト (orderList) を再構築する ★★★
-	 // orderList をクリアし、mapの全データを合算した新しい総合集計を作成
-	 List<AdminOrder> updatedOrderList = new AdPreorderLogic().getOrdersFromMap(map);
+	 // ★修正: mapから総合集計リスト (orderList) を作成し、
+	 // ★これを最終的に画面に渡すリストとする
+	 List<AdminOrder> orderListForDisplay = logic.getOrdersFromMap(map); 
 	    
 	    Date orderDate = new Date(System.currentTimeMillis()); // 日付を再取得
 
 	    // ★★★ 画面表示データとCSV出力を兼ねて、セッションにも保存する ★★★
-	    session.setAttribute("orderList", orderList);
+	    session.setAttribute("orderList", orderListForDisplay); // ★修正
 	    session.setAttribute("totalAmount", totalAmount);
 	    session.setAttribute("orderDate", orderDate);
 	    session.setAttribute("totalQuantity", totalQuantity);
 	    session.setAttribute("map", map); // 部署別リスト
 	    session.setAttribute("totalPriceMap", totalPriceMap); // 部署別合計金額
 
-	 // デバッグ用出力
-	    System.out.println("--- DB更新後のセッションデータ確認 ---");
-	    System.out.println("orderList size: " + (updatedOrderList != null ? updatedOrderList.size() : "null")); 
-	    System.out.println("map size: " + (map != null ? map.size() : "null"));
-	    System.out.println("------------------------------------");
 	    
 	    // リクエスト属性はフォワード先でのみ使用
-	    request.setAttribute("orderList", orderList);
+	    request.setAttribute("orderList", orderListForDisplay); // ★修正
 	    request.setAttribute("totalAmount", totalAmount);
 	    request.setAttribute("orderDate", orderDate);
 	    request.setAttribute("totalQuantity", totalQuantity);
